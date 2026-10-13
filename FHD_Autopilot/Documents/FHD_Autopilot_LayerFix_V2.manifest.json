@@ -1,0 +1,181 @@
+{
+  "schema": "srhd-modkit-manifest-v1",
+  "source": "/workspace/scratch/bccee61f41a7/fixed_v2/FHD_Autopilot",
+  "root_name": "FHD_Autopilot",
+  "prefix": "FHD_MODS/FHD_Autopilot",
+  "exclude": [],
+  "strip_sources": false,
+  "file_count": 32,
+  "total_size": 6547801,
+  "stage_verified": true,
+  "audit_coverage_complete": false,
+  "audit_operational_failure": false,
+  "files": [
+    {
+      "path": "ModuleInfo.txt",
+      "size": 2244,
+      "sha256": "37f5de1a4a93b1d976121d9e5e6b888ca88926db65202af8501731548b9ecd41"
+    },
+    {
+      "path": "АВТОПИЛОТ.bmp",
+      "size": 6220854,
+      "sha256": "ded9278ac5bf9095abd7af094117915f3eb2b43a89e13ad84c415a1e51a339f0"
+    },
+    {
+      "path": "CFG/CacheData.dat",
+      "size": 351,
+      "sha256": "12819d180007fbf29caaa582e60784eddbf8bf0c60a746b10e5eb4aabf90f738"
+    },
+    {
+      "path": "CFG/Main.dat",
+      "size": 1577,
+      "sha256": "a145348a8347c3ba575e72a28813729f3941d56684d918cf7c18674a35ea96e7"
+    },
+    {
+      "path": "CFG/Rus/Lang.dat",
+      "size": 15649,
+      "sha256": "e066af7702fb9c6b8b6597943426824a42f3d769d356118d9442c63a7b9da5c9"
+    },
+    {
+      "path": "DATA/Script/Mod_FHD_Autopilot_Controller.scr",
+      "size": 1117,
+      "sha256": "e0edd90d94d470b9dbbcc8c1644e845937491f7bb34a21bf8af6f45daf9f3077"
+    },
+    {
+      "path": "DATA/UI/2AvtoA.gi",
+      "size": 11910,
+      "sha256": "2da91e5fb008f316df95343198d5efc2647a934ede7be26828c144d1491b018a"
+    },
+    {
+      "path": "DATA/UI/2AvtoD.gi",
+      "size": 10632,
+      "sha256": "be7b4d253afbcf96c502acf070a8273a81d79f52ebd30b2567391eb70c0a16db"
+    },
+    {
+      "path": "DATA/UI/2AvtoGA.gi",
+      "size": 11940,
+      "sha256": "276e681b2aba8d4728596094335be546def9fda3adf51979ab92d37626f1ec16"
+    },
+    {
+      "path": "DATA/UI/2AvtoGD.gi",
+      "size": 11968,
+      "sha256": "48d00d870930e8898d344d9cdeca152b0a659ea95012676ac57c40b6f313da55"
+    },
+    {
+      "path": "DATA/UI/2AvtoGN.gi",
+      "size": 11875,
+      "sha256": "5b97c71d028f832ed8f16cafae61ed145da5d3bcd50b31e332afce66e658f938"
+    },
+    {
+      "path": "DATA/UI/2AvtoN.gi",
+      "size": 11910,
+      "sha256": "07f646e2497b1b64b185f0c19533fe8d4110679fdf23f5af4ef58b8d45d5960e"
+    },
+    {
+      "path": "DATA/UI/2FullA.gi",
+      "size": 10785,
+      "sha256": "07581bc38ce4beb01b976c13f41280cd74a7472327ac11006a1391fc87801456"
+    },
+    {
+      "path": "DATA/UI/2FullD.gi",
+      "size": 10787,
+      "sha256": "613a0574b59ff6965478dd9ce3e96e8803449f4f0e90cb7ce7ea45a65304bdbd"
+    },
+    {
+      "path": "DATA/UI/2FullN.gi",
+      "size": 10803,
+      "sha256": "a098c6b66cbee3010a7b1758c0d4b505106885a2ad6b51ab6faff4d2d79e5016"
+    },
+    {
+      "path": "DATA/UI/2FullRA.gi",
+      "size": 10821,
+      "sha256": "3119c35aaa21aec717d9754ef7963b6b3d48e7fa71fb2549180ad5ef3355bf39"
+    },
+    {
+      "path": "DATA/UI/2FullRD.gi",
+      "size": 10864,
+      "sha256": "c0437d4f4b3ec00e42663dfc590e9daf3e233910d8a3c67fe2e9f932a1462e58"
+    },
+    {
+      "path": "DATA/UI/2FullRN.gi",
+      "size": 10816,
+      "sha256": "7be6608e02b6e194edf04af8ab200475278c3dc2a6efc83169b955e4021e5963"
+    },
+    {
+      "path": "DATA/UI/2PausA.gi",
+      "size": 4627,
+      "sha256": "10843c9fc08ef3948b4ca0041808a905438e631581e5c8e10e00323953822b1e"
+    },
+    {
+      "path": "DATA/UI/2PausD.gi",
+      "size": 4620,
+      "sha256": "7154486124a877384d028ae4586c1bb00b819578a56b00a40d387f05c9ab4c38"
+    },
+    {
+      "path": "DATA/UI/2PausN.gi",
+      "size": 4619,
+      "sha256": "4e8e9fe1bdcc5c749f453afa2f51ffe1b6de3b2dbbfce7d5695849fca695530d"
+    },
+    {
+      "path": "DATA/UI/2PausRA.gi",
+      "size": 4690,
+      "sha256": "2885076023e8cbd2cff294ea07de48fb12268420ae87d511a4b35040fa1329a2"
+    },
+    {
+      "path": "DATA/UI/2PausRD.gi",
+      "size": 4675,
+      "sha256": "212db7f9ff8eb8e2bf0765699e3ff520569fd3510aeed33e33945b495e776266"
+    },
+    {
+      "path": "DATA/UI/2PausRN.gi",
+      "size": 4686,
+      "sha256": "9158871b34b514c0dbf509a2c15865146ad24b2977686d82673c70ccdc34f702"
+    },
+    {
+      "path": "DATA/UI/2RepairA.gi",
+      "size": 8801,
+      "sha256": "f30ad1ff9d018f854eaa5a1b9003a330247efa508228d6385322cca422e69708"
+    },
+    {
+      "path": "DATA/UI/2RepairD.gi",
+      "size": 8793,
+      "sha256": "638e3c6bc691845a36799a9b03b45ff8abd296b694e060db301ad962eea58a79"
+    },
+    {
+      "path": "DATA/UI/2RepairN.gi",
+      "size": 8793,
+      "sha256": "33a40eb448ef393e34e3985e28750aea4077b526df9a3011ee16319716f6c984"
+    },
+    {
+      "path": "DATA/UI/2RepairRA.gi",
+      "size": 8783,
+      "sha256": "f6340da926daae722330b628bac4a41a32f94641fbe556a0ffdfab2266d2485a"
+    },
+    {
+      "path": "DATA/UI/2RepairRD.gi",
+      "size": 8776,
+      "sha256": "847c69f1f7b8a2e85ee9bd9525dfa35bc2c051916c05b20b170b9a77e8f354ae"
+    },
+    {
+      "path": "DATA/UI/2RepairRN.gi",
+      "size": 8776,
+      "sha256": "777490e12223083ac42b7c0a720b3e3c3899f357c86734c06821dd1627f7fd31"
+    },
+    {
+      "path": "DATA/UI/HangarPanel.gi",
+      "size": 64145,
+      "sha256": "7eab2be3f01c2f2a893dabf9d2ff8a2862d47ab1c9cfec51a4169aad3073e60f"
+    },
+    {
+      "path": "DATA/UI/StarMapControlFrame.gi",
+      "size": 26114,
+      "sha256": "4da6967b5667383cc97f5711c9192716b4054e1c359f8b7740af727e16259a2c"
+    }
+  ],
+  "archive": {
+    "name": "FHD_Autopilot_LayerFix_V2.zip",
+    "size": 1249570,
+    "sha256": "352682ba95f0d036a1f081e39c2d2f11ac230b55716b4fbc117489d3420302a4",
+    "verified": true
+  }
+}

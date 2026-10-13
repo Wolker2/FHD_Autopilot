@@ -1,0 +1,3 @@
+SFT('[FHD_Autopilot 2.00] incoming dialog intercepted');
+DAnswer('exit');
+exit;

@@ -1,0 +1,388 @@
+BV ^{
+    OnLoad ~{
+        80_FHDAutopilot=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OnLoad'));
+    }
+    OnStart ^{
+        0DayScripts ~{
+            80_FHDAutopilot=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OnLoad'));
+        }
+    }
+}
+Data ^{
+    Script ^{
+        Mod_FHD_Autopilot_Controller=1,Script.Mod_FHD_Autopilot_Controller
+    }
+}
+ML ^{
+    Hangar ^{
+        Panel ^{
+            FHDAutopilotHangarPanelContainer ^{
+                Panel ^{
+                    Image ~{
+                        Image=GI,Bm.FHDAutopilot.HangarPanel
+                        MouseBlocking=False
+                        MouseBlockingTest=False
+                        Name=FHDAutopilotHangarPanel
+                        Pos=0,0,10
+                        Size=305,160
+                    }
+                    Name=FHDAutopilotHangarPanelContainer
+                    Pos=352,568,-10
+                    PosAutoCorrection=True
+                    PosAutoCorrectionXCoef=0.5
+                    PosAutoCorrectionYCoef=0.5
+                    Size=305,160
+                }
+            }
+            FHDAutopilotMissileContainer ^{
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FHDAutopilot.FullD
+                        ImageNormal=GI,Bm.FHDAutopilot.FullN
+                        ImageNormalA=GI,Bm.FHDAutopilot.FullA
+                        Kind=Normal
+                        KindHit=Rect
+                        MouseBlocking=True
+                        MouseBlockingTest=False
+                        Name=FHDAutopilotMissileNormal
+                        OnMouseEnterCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));
+                            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));
+                        }
+                        OnMouseLeaveCode ~{
+                            00=InterfaceText('Hangar','PM_Help','');
+                            01=InterfaceState('Hangar','PM_Help',0);
+                        }
+                        OnPressCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarReloadMissiles'));
+                        }
+                        Pos=0,0,-1
+                        Size=89,48
+                        Style=Style.GB.SoundNormal
+                    }
+                    Name=FHDAutopilotMissileNormalContainer
+                    Pos=357,669,-10
+                    PosAutoCorrection=True
+                    PosAutoCorrectionXCoef=0.5
+                    PosAutoCorrectionYCoef=0.5
+                    Size=89,48
+                }
+            }
+            FHDAutopilotMissileRedContainer ^{
+                Panel ^{
+                    GraphButton ^{
+                        Active=False
+                        ImageDown=GI,Bm.FHDAutopilot.FullRN
+                        ImageNormal=GI,Bm.FHDAutopilot.FullRN
+                        ImageNormalA=GI,Bm.FHDAutopilot.FullRA
+                        Kind=Normal
+                        KindHit=Rect
+                        MouseBlocking=True
+                        MouseBlockingTest=False
+                        Name=FHDAutopilotMissileRed
+                        OnMouseEnterCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));
+                            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));
+                        }
+                        OnMouseLeaveCode ~{
+                            00=InterfaceText('Hangar','PM_Help','');
+                            01=InterfaceState('Hangar','PM_Help',0);
+                        }
+                        OnPressCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarReloadMissiles'));
+                        }
+                        Pos=0,0,-1
+                        Size=89,48
+                        Style=Style.GB.SoundNormal
+                    }
+                    Name=FHDAutopilotMissileRedContainer
+                    Pos=357,669,-10
+                    PosAutoCorrection=True
+                    PosAutoCorrectionXCoef=0.5
+                    PosAutoCorrectionYCoef=0.5
+                    Size=89,48
+                }
+            }
+            FHDAutopilotRepairContainer ^{
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FHDAutopilot.RepairD
+                        ImageNormal=GI,Bm.FHDAutopilot.RepairN
+                        ImageNormalA=GI,Bm.FHDAutopilot.RepairA
+                        Kind=Normal
+                        KindHit=Rect
+                        MouseBlocking=True
+                        MouseBlockingTest=False
+                        Name=FHDAutopilotRepairNormal
+                        OnMouseEnterCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));
+                            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));
+                        }
+                        OnMouseLeaveCode ~{
+                            00=InterfaceText('Hangar','PM_Help','');
+                            01=InterfaceState('Hangar','PM_Help',0);
+                        }
+                        OnPressCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarRepairAll'));
+                        }
+                        Pos=0,0,-1
+                        Size=95,32
+                        Style=Style.GB.SoundNormal
+                    }
+                    Name=FHDAutopilotRepairNormalContainer
+                    Pos=363,637,-10
+                    PosAutoCorrection=True
+                    PosAutoCorrectionXCoef=0.5
+                    PosAutoCorrectionYCoef=0.5
+                    Size=95,32
+                }
+            }
+            FHDAutopilotRepairRedContainer ^{
+                Panel ^{
+                    GraphButton ^{
+                        Active=False
+                        ImageDown=GI,Bm.FHDAutopilot.RepairRD
+                        ImageNormal=GI,Bm.FHDAutopilot.RepairRN
+                        ImageNormalA=GI,Bm.FHDAutopilot.RepairRA
+                        Kind=Normal
+                        KindHit=Rect
+                        MouseBlocking=True
+                        MouseBlockingTest=False
+                        Name=FHDAutopilotRepairRed
+                        OnMouseEnterCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));
+                            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));
+                        }
+                        OnMouseLeaveCode ~{
+                            00=InterfaceText('Hangar','PM_Help','');
+                            01=InterfaceState('Hangar','PM_Help',0);
+                        }
+                        OnPressCode ~{
+                            00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarRepairAll'));
+                        }
+                        Pos=0,0,-1
+                        Size=95,32
+                        Style=Style.GB.SoundNormal
+                    }
+                    Name=FHDAutopilotRepairRedContainer
+                    Pos=363,637,-10
+                    PosAutoCorrection=True
+                    PosAutoCorrectionXCoef=0.5
+                    PosAutoCorrectionYCoef=0.5
+                    Size=95,32
+                }
+            }
+            GAI ~{
+            }
+            GAI ~{
+            }
+            GAI ~{
+            }
+            GAI ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            GraphBuf ~{
+            }
+            Image ~{
+            }
+            Image ~{
+            }
+            Image ~{
+            }
+            Image ~{
+            }
+            Name=MainPanel
+            Panel ~{
+            }
+            Panel ~{
+            }
+            Panel ~{
+            }
+            Panel ~{
+            }
+            Panel ~{
+            }
+            Panel ^{
+                GraphButton ~{
+                    Help=Help.ButRepair
+                    ImageDisable=GI,Bm.FormHangar2.2RepairH
+                    ImageDown=GI,Bm.FormHangar2.2RepairD
+                    ImageNormal=GI,Bm.FormHangar2.2RepairN
+                    ImageNormalA=GI,Bm.FormHangar2.2RepairA
+                    Kind=Disable
+                    KindHit=Rect
+                    Name=ButRepair
+                    Pos=18,11,8
+                    Size=63,37
+                    Style=Style.GB.SoundNormal
+                }
+                GraphButton ~{
+                    Help=Help.ButRefuel
+                    ImageDisable=GI,Bm.FormHangar2.2FuelH
+                    ImageDown=GI,Bm.FormHangar2.2FuelD
+                    ImageNormal=GI,Bm.FormHangar2.2FuelN
+                    ImageNormalA=GI,Bm.FormHangar2.2FuelA
+                    Kind=Disable
+                    KindHit=Graph
+                    Name=ButRefuel
+                    Pos=78,11,8
+                    Size=63,37
+                    Style=Style.GB.SoundNormal
+                }
+                GraphButton ~{
+                    Help=Help.ButTakeoff
+                    ImageDisable=GI,Bm.FormHangar2.2TakeOffH
+                    ImageDown=GI,Bm.FormHangar2.2TakeOffD
+                    ImageNormal=GI,Bm.FormHangar2.2TakeOffN
+                    ImageNormalA=GI,Bm.FormHangar2.2TakeOffA
+                    Kind=Disable
+                    KindHit=Graph
+                    Name=ButTakeOff
+                    Pos=138,11,8
+                    Size=63,37
+                    Style=Style.GB.SoundNormal
+                }
+                GraphButton ~{
+                    ImageDown=GI,Bm.FormHangar2.2CloseD
+                    ImageNormal=GI,Bm.FormHangar2.2CloseN
+                    ImageNormalA=GI,Bm.FormHangar2.2CloseA
+                    Kind=Normal
+                    KindHit=Rect
+                    Name=ButClose
+                    Pos=220,26,8
+                    Size=61,35
+                    Style=Style.GB.SoundNormal
+                }
+                Name=PanelDown
+                Pos=357,578,-9
+                Size=302,63
+            }
+            Pos=0,0
+            Size=1024,768
+            Window ~{
+            }
+        }
+    }
+    StarMap ^{
+        Panel ^{
+            Panel ^{
+                FHDAutopilotControlsContainer ^{
+                    Panel ^{
+                        GraphButton ^{
+                            Help=Help.FHDAutopilotToggle
+                            ImageDown=GI,Bm.FHDAutopilot.AvtoD
+                            ImageNormal=GI,Bm.FHDAutopilot.AvtoN
+                            ImageNormalA=GI,Bm.FHDAutopilot.AvtoA
+                            Kind=Normal
+                            KindHit=Rect
+                            MouseBlocking=True
+                            MouseBlockingTest=False
+                            Name=FHDAutopilotAutoOff
+                            OnPressCode ~{
+                                00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Toggle'));
+                                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+                            }
+                            Pos=0,0,-1
+                            Size=80,31
+                            Style=Style.GB.SoundNormal
+                        }
+                        GraphButton ^{
+                            Active=False
+                            Help=Help.FHDAutopilotToggle
+                            ImageDown=GI,Bm.FHDAutopilot.AvtoGD
+                            ImageNormal=GI,Bm.FHDAutopilot.AvtoGN
+                            ImageNormalA=GI,Bm.FHDAutopilot.AvtoGA
+                            Kind=Normal
+                            KindHit=Rect
+                            MouseBlocking=True
+                            MouseBlockingTest=False
+                            Name=FHDAutopilotAutoOn
+                            OnPressCode ~{
+                                00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Toggle'));
+                                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+                            }
+                            Pos=0,0,-2
+                            Size=80,31
+                            Style=Style.GB.SoundNormal
+                        }
+                        GraphButton ^{
+                            Help=Help.FHDAutopilotPause
+                            ImageDown=GI,Bm.FHDAutopilot.PausD
+                            ImageNormal=GI,Bm.FHDAutopilot.PausN
+                            ImageNormalA=GI,Bm.FHDAutopilot.PausA
+                            Kind=Normal
+                            KindHit=Rect
+                            MouseBlocking=True
+                            MouseBlockingTest=True
+                            Name=FHDAutopilotPauseOff
+                            OnPressCode ~{
+                                00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.TogglePause'));
+                            }
+                            Pos=82,0,-1
+                            Size=45,31
+                            Style=Style.GB.SoundNormal
+                        }
+                        GraphButton ^{
+                            Active=False
+                            Help=Help.FHDAutopilotPause
+                            ImageDown=GI,Bm.FHDAutopilot.PausRD
+                            ImageNormal=GI,Bm.FHDAutopilot.PausRN
+                            ImageNormalA=GI,Bm.FHDAutopilot.PausRA
+                            Kind=Normal
+                            KindHit=Rect
+                            MouseBlocking=True
+                            MouseBlockingTest=True
+                            Name=FHDAutopilotPauseOn
+                            OnPressCode ~{
+                                00=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.TogglePause'));
+                            }
+                            Pos=82,0,-2
+                            Size=45,31
+                            Style=Style.GB.SoundNormal
+                        }
+                        Name=FHDAutopilotControlsContainer
+                        Pos=-167,353,-11
+                        PosAutoCorrection=True
+                        PosAutoCorrectionXCoef=0.5
+                        PosAutoCorrectionYCoef=0.5
+                        Size=127,31
+                    }
+                }
+                FHDAutopilotStarMapFrameContainer ^{
+                    Panel ^{
+                        Active=False
+                        Image ~{
+                            Image=GI,Bm.FHDAutopilot.StarMapControlFrame
+                            MouseBlocking=False
+                            MouseBlockingTest=False
+                            Name=FHDAutopilotStarMapFrame
+                            Pos=0,0,-1
+                            Size=226,54
+                        }
+                        Name=FHDAutopilotStarMapFrameContainer
+                        Pos=-117,307,-4
+                        PosAutoCorrection=True
+                        PosAutoCorrectionXCoef=0.0
+                        PosAutoCorrectionYCoef=0.5
+                        Size=226,54
+                    }
+                }
+            }
+        }
+    }
+}

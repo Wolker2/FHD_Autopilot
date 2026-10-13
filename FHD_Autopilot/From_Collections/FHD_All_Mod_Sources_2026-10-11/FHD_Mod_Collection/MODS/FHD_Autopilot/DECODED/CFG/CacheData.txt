@@ -1,0 +1,32 @@
+Bm ^{
+    FHDAutopilot ^{
+        AvtoA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2AvtoA.gi
+        AvtoD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2AvtoD.gi
+        AvtoGA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2AvtoGA.gi
+        AvtoGD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2AvtoGD.gi
+        AvtoGN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2AvtoGN.gi
+        AvtoN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2AvtoN.gi
+        FullA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2FullA.gi
+        FullD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2FullD.gi
+        FullN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2FullN.gi
+        FullRA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2FullRA.gi
+        FullRN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2FullRN.gi
+        HangarPanel=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\HangarPanel.gi
+        PausA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2PausA.gi
+        PausD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2PausD.gi
+        PausN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2PausN.gi
+        PausRA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2PausRA.gi
+        PausRD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2PausRD.gi
+        PausRN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2PausRN.gi
+        RepairA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2RepairA.gi
+        RepairD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2RepairD.gi
+        RepairN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2RepairN.gi
+        RepairRA=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2RepairRA.gi
+        RepairRD=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2RepairRD.gi
+        RepairRN=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\2RepairRN.gi
+        StarMapControlFrame=Mods\FHD_MODS\FHD_Autopilot\DATA\UI\StarMapControlFrame.gi
+    }
+}
+Script ^{
+    Mod_FHD_Autopilot_Controller=Mods\FHD_MODS\FHD_Autopilot\DATA\Script\Mod_FHD_Autopilot_Controller.scr
+}

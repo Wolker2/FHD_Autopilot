@@ -1,0 +1,4 @@
+if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1 && GetTalkShip() && !GetShipPlanet(Player()) && !GetShipRuins(Player()) && !ShipInHyperSpace(Player()))
+{
+AddDialogOverride('SkipIncoming',1000000000);
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "fhd-scr-source-v1",
+  "version": 8,
+  "global_variables": [],
+  "global_code": {
+    "code_file": "code/global_code.code"
+  },
+  "local_variables": [
+    {
+      "name": "InitStar",
+      "type": 2,
+      "value": 0
+    },
+    {
+      "name": "InitPlanet",
+      "type": 2,
+      "value": 0
+    },
+    {
+      "name": "PlayerGroup",
+      "type": 2,
+      "value": 0
+    },
+    {
+      "name": "SkipIncoming",
+      "type": 2,
+      "value": 0
+    }
+  ],
+  "constellations": 0,
+  "stars": [
+    {
+      "name": "InitStar",
+      "constellation_index": -1,
+      "reject_hostile_presence": false,
+      "protect_star": false,
+      "constraints": [],
+      "planets": [
+        {
+          "name": "InitPlanet",
+          "race_mask": 62,
+          "owner_mask": 62,
+          "economy_mask": 14,
+          "government_mask": 62,
+          "min_orbit_percent": 0,
+          "max_orbit_percent": 100,
+          "dialog_code_or_variable": ""
+        }
+      ],
+      "ships": [
+        {
+          "count": 1,
+          "owner_mask": 62,
+          "ship_type_mask": 126,
+          "player_only": true,
+          "min_speed": 0,
+          "max_speed": 10000,
+          "weapon_requirement": 0,
+          "min_cargo_hook": 0,
+          "min_free_cargo": 0,
+          "min_trader_status": 0,
+          "max_trader_status": 100,
+          "min_warrior_status": 0,
+          "max_warrior_status": 100,
+          "min_pirate_status": 0,
+          "max_pirate_status": 100,
+          "min_strength": 0.0,
+          "max_strength": 0.0,
+          "station_names": ""
+        }
+      ]
+    }
+  ],
+  "places": [],
+  "items": [],
+  "groups": [
+    {
+      "name": "PlayerGroup",
+      "planet_variable": "InitPlanet",
+      "initial_state_index": 0,
+      "owner_mask": 62,
+      "ship_type_mask": 126,
+      "min_count": 1,
+      "max_count": 1,
+      "min_speed": 100,
+      "max_speed": 10000,
+      "weapon_requirement": 0,
+      "min_cargo_hook": 0,
+      "min_free_cargo": 0,
+      "include_player": true,
+      "min_trader_status": 0,
+      "max_trader_status": 100,
+      "min_warrior_status": 0,
+      "max_warrior_status": 100,
+      "min_pirate_status": 0,
+      "max_pirate_status": 100,
+      "max_distance_from_planet": 10000,
+      "station_dialog_variable": "",
+      "min_strength": 0.0,
+      "max_strength": 0.0,
+      "station_names": ""
+    }
+  ],
+  "group_relations": [],
+  "init_code": "",
+  "turn_code": "",
+  "dialog_begin_code": {
+    "code_file": "code/dialog_begin_code.code"
+  },
+  "states": [
+    {
+      "name": "Observer",
+      "kind": 0,
+      "enemy_groups": [],
+      "pickup_item_variable": "",
+      "pickup_nearby_items": false,
+      "dialog_code_or_variable": "",
+      "on_action_code": "",
+      "entry_code": "",
+      "turn_code": ""
+    }
+  ],
+  "dialogs": [
+    {
+      "name": "SkipIncoming",
+      "code": {
+        "code_file": "code/dialogs_0_code.code"
+      }
+    }
+  ],
+  "dialog_messages": [],
+  "dialog_answers": [],
+  "script_name": "Mod_FHD_Autopilot_Controller",
+  "original_sha256": "e0edd90d94d470b9dbbcc8c1644e845937491f7bb34a21bf8af6f45daf9f3077"
+}

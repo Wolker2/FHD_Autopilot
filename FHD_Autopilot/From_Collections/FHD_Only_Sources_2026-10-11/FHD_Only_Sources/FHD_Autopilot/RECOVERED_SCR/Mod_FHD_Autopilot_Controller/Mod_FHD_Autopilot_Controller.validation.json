@@ -1,0 +1,43 @@
+{
+  "schema": "fhd-scr-native-recovery-validation-v1",
+  "mod": "FHD_Autopilot",
+  "script": "Mod_FHD_Autopilot_Controller.scr",
+  "original_sha256": "e0edd90d94d470b9dbbcc8c1644e845937491f7bb34a21bf8af6f45daf9f3077",
+  "rebuilt_sha256": "e0edd90d94d470b9dbbcc8c1644e845937491f7bb34a21bf8af6f45daf9f3077",
+  "scr_version": 8,
+  "original_bytes": 1117,
+  "rebuilt_bytes": 1117,
+  "entire_file_parsed": true,
+  "exact_binary_match": true,
+  "build_from_text_files_only": true,
+  "independent_parser_roundtrip": true,
+  "changed_length_code_roundtrip": true,
+  "unicode_code_roundtrip": true,
+  "in_game_tested": false,
+  "rson_restored": false,
+  "record_counts": {
+    "globalvars": 0,
+    "localvars": 4,
+    "stars": 1,
+    "places": 0,
+    "items": 0,
+    "groups": 1,
+    "states": 1,
+    "dialogs": 1,
+    "dialog_msgs": 0,
+    "dialog_answers": 0
+  },
+  "independent_parser": {
+    "repository": "https://github.com/murgesku/scird",
+    "commit": "2c19513c2912dd3c29bd596b07588dcb2695746b",
+    "note": "Enabled SCR 8 for these records; both readers confirm exact roundtrip"
+  },
+  "format_reference": {
+    "repository": "https://github.com/pakompom/SpaceRangersHD_decomp",
+    "commit": "63a579bb2fea4754951d9fb572b8c4b3b33b8f42",
+    "files": [
+      "source/script/aScript.pas",
+      "source/script/EC_Expression.pas"
+    ]
+  }
+}

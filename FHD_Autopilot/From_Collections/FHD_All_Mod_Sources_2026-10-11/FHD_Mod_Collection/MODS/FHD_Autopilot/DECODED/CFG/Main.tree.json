@@ -1,0 +1,2837 @@
+{
+  "format": "blockpar",
+  "header_key": 2984822409,
+  "new_format": true,
+  "seed": -1215181314,
+  "sha256": "963424c9c74fbe7e60e6d16cffba1578ed98d7076d59169d02aff6e74c6c96f8",
+  "tree": {
+    "sorted": true,
+    "entries": [
+      {
+        "name": "BV",
+        "block": {
+          "sorted": true,
+          "entries": [
+            {
+              "name": "OnLoad",
+              "block": {
+                "sorted": false,
+                "entries": [
+                  {
+                    "name": "80_FHDAutopilot",
+                    "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OnLoad'));"
+                  }
+                ]
+              },
+              "metadata": [
+                0,
+                1
+              ]
+            },
+            {
+              "name": "OnStart",
+              "block": {
+                "sorted": true,
+                "entries": [
+                  {
+                    "name": "0DayScripts",
+                    "block": {
+                      "sorted": false,
+                      "entries": [
+                        {
+                          "name": "80_FHDAutopilot",
+                          "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OnLoad'));"
+                        }
+                      ]
+                    },
+                    "metadata": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              },
+              "metadata": [
+                0,
+                1
+              ]
+            }
+          ]
+        },
+        "metadata": [
+          0,
+          1
+        ]
+      },
+      {
+        "name": "Data",
+        "block": {
+          "sorted": true,
+          "entries": [
+            {
+              "name": "Script",
+              "block": {
+                "sorted": true,
+                "entries": [
+                  {
+                    "name": "Mod_FHD_Autopilot_Controller",
+                    "value": "1,Script.Mod_FHD_Autopilot_Controller",
+                    "metadata": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              },
+              "metadata": [
+                0,
+                1
+              ]
+            }
+          ]
+        },
+        "metadata": [
+          0,
+          1
+        ]
+      },
+      {
+        "name": "ML",
+        "block": {
+          "sorted": true,
+          "entries": [
+            {
+              "name": "Hangar",
+              "block": {
+                "sorted": true,
+                "entries": [
+                  {
+                    "name": "Panel",
+                    "block": {
+                      "sorted": true,
+                      "entries": [
+                        {
+                          "name": "FHDAutopilotHangarPanelContainer",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "Panel",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "Image",
+                                      "block": {
+                                        "sorted": false,
+                                        "entries": [
+                                          {
+                                            "name": "Image",
+                                            "value": "GI,Bm.FHDAutopilot.HangarPanel"
+                                          },
+                                          {
+                                            "name": "MouseBlocking",
+                                            "value": "False"
+                                          },
+                                          {
+                                            "name": "MouseBlockingTest",
+                                            "value": "False"
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotHangarPanel"
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "0,0,10"
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "305,160"
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "FHDAutopilotHangarPanelContainer",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "352,568,-10",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrection",
+                                      "value": "True",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionXCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionYCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "305,160",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "FHDAutopilotMissileContainer",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "Panel",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "GraphButton",
+                                      "block": {
+                                        "sorted": true,
+                                        "entries": [
+                                          {
+                                            "name": "ImageDown",
+                                            "value": "GI,Bm.FHDAutopilot.FullD",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormal",
+                                            "value": "GI,Bm.FHDAutopilot.FullN",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormalA",
+                                            "value": "GI,Bm.FHDAutopilot.FullA",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Kind",
+                                            "value": "Normal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "KindHit",
+                                            "value": "Rect",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlocking",
+                                            "value": "True",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlockingTest",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotMissileNormal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseEnterCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseLeaveCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "InterfaceText('Hangar','PM_Help','');"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "InterfaceState('Hangar','PM_Help',0);"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnPressCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarReloadMissiles'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "0,0,-1",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "89,48",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Style",
+                                            "value": "Style.GB.SoundNormal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "FHDAutopilotMissileNormalContainer",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "357,669,-10",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrection",
+                                      "value": "True",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionXCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionYCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "89,48",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "FHDAutopilotMissileRedContainer",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "Panel",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "GraphButton",
+                                      "block": {
+                                        "sorted": true,
+                                        "entries": [
+                                          {
+                                            "name": "Active",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageDown",
+                                            "value": "GI,Bm.FHDAutopilot.FullRN",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormal",
+                                            "value": "GI,Bm.FHDAutopilot.FullRN",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormalA",
+                                            "value": "GI,Bm.FHDAutopilot.FullRA",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Kind",
+                                            "value": "Normal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "KindHit",
+                                            "value": "Rect",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlocking",
+                                            "value": "True",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlockingTest",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotMissileRed",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseEnterCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseLeaveCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "InterfaceText('Hangar','PM_Help','');"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "InterfaceState('Hangar','PM_Help',0);"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnPressCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarReloadMissiles'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "0,0,-1",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "89,48",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Style",
+                                            "value": "Style.GB.SoundNormal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "FHDAutopilotMissileRedContainer",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "357,669,-10",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrection",
+                                      "value": "True",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionXCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionYCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "89,48",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "FHDAutopilotRepairContainer",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "Panel",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "GraphButton",
+                                      "block": {
+                                        "sorted": true,
+                                        "entries": [
+                                          {
+                                            "name": "ImageDown",
+                                            "value": "GI,Bm.FHDAutopilot.RepairD",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormal",
+                                            "value": "GI,Bm.FHDAutopilot.RepairN",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormalA",
+                                            "value": "GI,Bm.FHDAutopilot.RepairA",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Kind",
+                                            "value": "Normal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "KindHit",
+                                            "value": "Rect",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlocking",
+                                            "value": "True",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlockingTest",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotRepairNormal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseEnterCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseLeaveCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "InterfaceText('Hangar','PM_Help','');"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "InterfaceState('Hangar','PM_Help',0);"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnPressCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarRepairAll'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "0,0,-1",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "95,32",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Style",
+                                            "value": "Style.GB.SoundNormal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "FHDAutopilotRepairNormalContainer",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "363,637,-10",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrection",
+                                      "value": "True",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionXCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionYCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "95,32",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "FHDAutopilotRepairRedContainer",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "Panel",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "GraphButton",
+                                      "block": {
+                                        "sorted": true,
+                                        "entries": [
+                                          {
+                                            "name": "Active",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageDown",
+                                            "value": "GI,Bm.FHDAutopilot.RepairRD",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormal",
+                                            "value": "GI,Bm.FHDAutopilot.RepairRN",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "ImageNormalA",
+                                            "value": "GI,Bm.FHDAutopilot.RepairRA",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Kind",
+                                            "value": "Normal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "KindHit",
+                                            "value": "Rect",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlocking",
+                                            "value": "True",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "MouseBlockingTest",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotRepairRed",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseEnterCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnMouseLeaveCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "InterfaceText('Hangar','PM_Help','');"
+                                                },
+                                                {
+                                                  "name": "01",
+                                                  "value": "InterfaceState('Hangar','PM_Help',0);"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "OnPressCode",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "00",
+                                                  "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarRepairAll'));"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "0,0,-1",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "95,32",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Style",
+                                            "value": "Style.GB.SoundNormal",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "FHDAutopilotRepairRedContainer",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "363,637,-10",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrection",
+                                      "value": "True",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionXCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "PosAutoCorrectionYCoef",
+                                      "value": "0.5",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "95,32",
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "GAI",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            0,
+                            4
+                          ]
+                        },
+                        {
+                          "name": "GAI",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            1,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GAI",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            2,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GAI",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            3,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            0,
+                            9
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            1,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            2,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            3,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            4,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            5,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            6,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            7,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "GraphBuf",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            8,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Image",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            0,
+                            4
+                          ]
+                        },
+                        {
+                          "name": "Image",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            1,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Image",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            2,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Image",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            3,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Name",
+                          "value": "MainPanel",
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            0,
+                            6
+                          ]
+                        },
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            1,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            2,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            3,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            4,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "GraphButton",
+                                "block": {
+                                  "sorted": false,
+                                  "entries": [
+                                    {
+                                      "name": "Help",
+                                      "value": "Help.ButRepair"
+                                    },
+                                    {
+                                      "name": "ImageDisable",
+                                      "value": "GI,Bm.FormHangar2.2RepairH"
+                                    },
+                                    {
+                                      "name": "ImageDown",
+                                      "value": "GI,Bm.FormHangar2.2RepairD"
+                                    },
+                                    {
+                                      "name": "ImageNormal",
+                                      "value": "GI,Bm.FormHangar2.2RepairN"
+                                    },
+                                    {
+                                      "name": "ImageNormalA",
+                                      "value": "GI,Bm.FormHangar2.2RepairA"
+                                    },
+                                    {
+                                      "name": "Kind",
+                                      "value": "Disable"
+                                    },
+                                    {
+                                      "name": "KindHit",
+                                      "value": "Rect"
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "ButRepair"
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "18,11,8"
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "63,37"
+                                    },
+                                    {
+                                      "name": "Style",
+                                      "value": "Style.GB.SoundNormal"
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  4
+                                ]
+                              },
+                              {
+                                "name": "GraphButton",
+                                "block": {
+                                  "sorted": false,
+                                  "entries": [
+                                    {
+                                      "name": "Help",
+                                      "value": "Help.ButRefuel"
+                                    },
+                                    {
+                                      "name": "ImageDisable",
+                                      "value": "GI,Bm.FormHangar2.2FuelH"
+                                    },
+                                    {
+                                      "name": "ImageDown",
+                                      "value": "GI,Bm.FormHangar2.2FuelD"
+                                    },
+                                    {
+                                      "name": "ImageNormal",
+                                      "value": "GI,Bm.FormHangar2.2FuelN"
+                                    },
+                                    {
+                                      "name": "ImageNormalA",
+                                      "value": "GI,Bm.FormHangar2.2FuelA"
+                                    },
+                                    {
+                                      "name": "Kind",
+                                      "value": "Disable"
+                                    },
+                                    {
+                                      "name": "KindHit",
+                                      "value": "Graph"
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "ButRefuel"
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "78,11,8"
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "63,37"
+                                    },
+                                    {
+                                      "name": "Style",
+                                      "value": "Style.GB.SoundNormal"
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  1,
+                                  0
+                                ]
+                              },
+                              {
+                                "name": "GraphButton",
+                                "block": {
+                                  "sorted": false,
+                                  "entries": [
+                                    {
+                                      "name": "Help",
+                                      "value": "Help.ButTakeoff"
+                                    },
+                                    {
+                                      "name": "ImageDisable",
+                                      "value": "GI,Bm.FormHangar2.2TakeOffH"
+                                    },
+                                    {
+                                      "name": "ImageDown",
+                                      "value": "GI,Bm.FormHangar2.2TakeOffD"
+                                    },
+                                    {
+                                      "name": "ImageNormal",
+                                      "value": "GI,Bm.FormHangar2.2TakeOffN"
+                                    },
+                                    {
+                                      "name": "ImageNormalA",
+                                      "value": "GI,Bm.FormHangar2.2TakeOffA"
+                                    },
+                                    {
+                                      "name": "Kind",
+                                      "value": "Disable"
+                                    },
+                                    {
+                                      "name": "KindHit",
+                                      "value": "Graph"
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "ButTakeOff"
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "138,11,8"
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "63,37"
+                                    },
+                                    {
+                                      "name": "Style",
+                                      "value": "Style.GB.SoundNormal"
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  2,
+                                  0
+                                ]
+                              },
+                              {
+                                "name": "GraphButton",
+                                "block": {
+                                  "sorted": false,
+                                  "entries": [
+                                    {
+                                      "name": "ImageDown",
+                                      "value": "GI,Bm.FormHangar2.2CloseD"
+                                    },
+                                    {
+                                      "name": "ImageNormal",
+                                      "value": "GI,Bm.FormHangar2.2CloseN"
+                                    },
+                                    {
+                                      "name": "ImageNormalA",
+                                      "value": "GI,Bm.FormHangar2.2CloseA"
+                                    },
+                                    {
+                                      "name": "Kind",
+                                      "value": "Normal"
+                                    },
+                                    {
+                                      "name": "KindHit",
+                                      "value": "Rect"
+                                    },
+                                    {
+                                      "name": "Name",
+                                      "value": "ButClose"
+                                    },
+                                    {
+                                      "name": "Pos",
+                                      "value": "220,26,8"
+                                    },
+                                    {
+                                      "name": "Size",
+                                      "value": "61,35"
+                                    },
+                                    {
+                                      "name": "Style",
+                                      "value": "Style.GB.SoundNormal"
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  3,
+                                  0
+                                ]
+                              },
+                              {
+                                "name": "Name",
+                                "value": "PanelDown",
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              },
+                              {
+                                "name": "Pos",
+                                "value": "357,578,-9",
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              },
+                              {
+                                "name": "Size",
+                                "value": "302,63",
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            5,
+                            0
+                          ]
+                        },
+                        {
+                          "name": "Pos",
+                          "value": "0,0",
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "Size",
+                          "value": "1024,768",
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "name": "Window",
+                          "block": {
+                            "sorted": false,
+                            "entries": []
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        }
+                      ]
+                    },
+                    "metadata": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              },
+              "metadata": [
+                0,
+                1
+              ]
+            },
+            {
+              "name": "StarMap",
+              "block": {
+                "sorted": true,
+                "entries": [
+                  {
+                    "name": "Panel",
+                    "block": {
+                      "sorted": true,
+                      "entries": [
+                        {
+                          "name": "Panel",
+                          "block": {
+                            "sorted": true,
+                            "entries": [
+                              {
+                                "name": "FHDAutopilotControlsContainer",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "Panel",
+                                      "block": {
+                                        "sorted": true,
+                                        "entries": [
+                                          {
+                                            "name": "GraphButton",
+                                            "block": {
+                                              "sorted": true,
+                                              "entries": [
+                                                {
+                                                  "name": "Help",
+                                                  "value": "Help.FHDAutopilotToggle",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageDown",
+                                                  "value": "GI,Bm.FHDAutopilot.AvtoD",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormal",
+                                                  "value": "GI,Bm.FHDAutopilot.AvtoN",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormalA",
+                                                  "value": "GI,Bm.FHDAutopilot.AvtoA",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Kind",
+                                                  "value": "Normal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "KindHit",
+                                                  "value": "Rect",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlocking",
+                                                  "value": "True",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlockingTest",
+                                                  "value": "False",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Name",
+                                                  "value": "FHDAutopilotAutoOff",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "OnPressCode",
+                                                  "block": {
+                                                    "sorted": false,
+                                                    "entries": [
+                                                      {
+                                                        "name": "00",
+                                                        "value": "if(FilmFlags(0) || IsFilm())"
+                                                      },
+                                                      {
+                                                        "name": "01",
+                                                        "block": {
+                                                          "sorted": false,
+                                                          "entries": [
+                                                            {
+                                                              "name": "01",
+                                                              "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1)ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,1);"
+                                                            },
+                                                            {
+                                                              "name": "02",
+                                                              "value": "FilmFlags(3,0);FilmFlags(2,1);"
+                                                            },
+                                                            {
+                                                              "name": "03",
+                                                              "value": "if(!FilmFlags(0) && IsFilm())ButtonClick('StarMap','PM_Break');"
+                                                            },
+                                                            {
+                                                              "name": "03a",
+                                                              "block": {
+                                                                "sorted": false,
+                                                                "entries": [
+                                                                  {
+                                                                    "name": "01",
+                                                                    "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1) || ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==2)"
+                                                                  },
+                                                                  {
+                                                                    "name": "02",
+                                                                    "block": {
+                                                                      "sorted": false,
+                                                                      "entries": [
+                                                                        {
+                                                                          "name": "01",
+                                                                          "value": "if(InterfaceState('StarMap','FHDAutopilotPauseOff')>=0 && InterfaceState('StarMap','FHDAutopilotPauseOn')>=0)"
+                                                                        },
+                                                                        {
+                                                                          "name": "02",
+                                                                          "block": {
+                                                                            "sorted": false,
+                                                                            "entries": [
+                                                                              {
+                                                                                "name": "01",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOff',0);"
+                                                                              },
+                                                                              {
+                                                                                "name": "02",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOn',1);"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "name": "04",
+                                                              "value": "exit;"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "name": "02",
+                                                        "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Toggle'));"
+                                                      },
+                                                      {
+                                                        "name": "03",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;"
+                                                      },
+                                                      {
+                                                        "name": "04",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))exit;"
+                                                      },
+                                                      {
+                                                        "name": "05",
+                                                        "value": "if(CurrentForm()!='StarMap' || GetShipPlanet(Player()) || GetShipRuins(Player()))exit;"
+                                                      },
+                                                      {
+                                                        "name": "06",
+                                                        "value": "if(!ShipInNormalSpace(Player()) || IsFilm() || FilmFlags(0) || ScriptItemActionType(t_OnStep))exit;"
+                                                      },
+                                                      {
+                                                        "name": "07",
+                                                        "value": "str nativeKickTurn=CurTurn()+'';"
+                                                      },
+                                                      {
+                                                        "name": "08",
+                                                        "value": "if(ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2)==nativeKickTurn)exit;"
+                                                      },
+                                                      {
+                                                        "name": "09",
+                                                        "value": "ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2,nativeKickTurn);"
+                                                      },
+                                                      {
+                                                        "name": "10",
+                                                        "value": "ButtonClick('StarMap','PM_EndTurn');"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Pos",
+                                                  "value": "0,0,-1",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Size",
+                                                  "value": "80,31",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Style",
+                                                  "value": "Style.GB.SoundNormal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              4
+                                            ]
+                                          },
+                                          {
+                                            "name": "GraphButton",
+                                            "block": {
+                                              "sorted": true,
+                                              "entries": [
+                                                {
+                                                  "name": "Active",
+                                                  "value": "False",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Help",
+                                                  "value": "Help.FHDAutopilotToggle",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageDown",
+                                                  "value": "GI,Bm.FHDAutopilot.AvtoGD",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormal",
+                                                  "value": "GI,Bm.FHDAutopilot.AvtoGN",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormalA",
+                                                  "value": "GI,Bm.FHDAutopilot.AvtoGA",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Kind",
+                                                  "value": "Normal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "KindHit",
+                                                  "value": "Rect",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlocking",
+                                                  "value": "True",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlockingTest",
+                                                  "value": "False",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Name",
+                                                  "value": "FHDAutopilotAutoOn",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "OnPressCode",
+                                                  "block": {
+                                                    "sorted": false,
+                                                    "entries": [
+                                                      {
+                                                        "name": "00",
+                                                        "value": "if(FilmFlags(0) || IsFilm())"
+                                                      },
+                                                      {
+                                                        "name": "01",
+                                                        "block": {
+                                                          "sorted": false,
+                                                          "entries": [
+                                                            {
+                                                              "name": "01",
+                                                              "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1)ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,1);"
+                                                            },
+                                                            {
+                                                              "name": "02",
+                                                              "value": "FilmFlags(3,0);FilmFlags(2,1);"
+                                                            },
+                                                            {
+                                                              "name": "03",
+                                                              "value": "if(!FilmFlags(0) && IsFilm())ButtonClick('StarMap','PM_Break');"
+                                                            },
+                                                            {
+                                                              "name": "03a",
+                                                              "block": {
+                                                                "sorted": false,
+                                                                "entries": [
+                                                                  {
+                                                                    "name": "01",
+                                                                    "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1) || ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==2)"
+                                                                  },
+                                                                  {
+                                                                    "name": "02",
+                                                                    "block": {
+                                                                      "sorted": false,
+                                                                      "entries": [
+                                                                        {
+                                                                          "name": "01",
+                                                                          "value": "if(InterfaceState('StarMap','FHDAutopilotPauseOff')>=0 && InterfaceState('StarMap','FHDAutopilotPauseOn')>=0)"
+                                                                        },
+                                                                        {
+                                                                          "name": "02",
+                                                                          "block": {
+                                                                            "sorted": false,
+                                                                            "entries": [
+                                                                              {
+                                                                                "name": "01",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOff',0);"
+                                                                              },
+                                                                              {
+                                                                                "name": "02",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOn',1);"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "name": "04",
+                                                              "value": "exit;"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "name": "02",
+                                                        "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Toggle'));"
+                                                      },
+                                                      {
+                                                        "name": "03",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;"
+                                                      },
+                                                      {
+                                                        "name": "04",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))exit;"
+                                                      },
+                                                      {
+                                                        "name": "05",
+                                                        "value": "if(CurrentForm()!='StarMap' || GetShipPlanet(Player()) || GetShipRuins(Player()))exit;"
+                                                      },
+                                                      {
+                                                        "name": "06",
+                                                        "value": "if(!ShipInNormalSpace(Player()) || IsFilm() || FilmFlags(0) || ScriptItemActionType(t_OnStep))exit;"
+                                                      },
+                                                      {
+                                                        "name": "07",
+                                                        "value": "str nativeKickTurn=CurTurn()+'';"
+                                                      },
+                                                      {
+                                                        "name": "08",
+                                                        "value": "if(ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2)==nativeKickTurn)exit;"
+                                                      },
+                                                      {
+                                                        "name": "09",
+                                                        "value": "ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2,nativeKickTurn);"
+                                                      },
+                                                      {
+                                                        "name": "10",
+                                                        "value": "ButtonClick('StarMap','PM_EndTurn');"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Pos",
+                                                  "value": "0,0,-2",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Size",
+                                                  "value": "80,31",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Style",
+                                                  "value": "Style.GB.SoundNormal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              1,
+                                              0
+                                            ]
+                                          },
+                                          {
+                                            "name": "GraphButton",
+                                            "block": {
+                                              "sorted": true,
+                                              "entries": [
+                                                {
+                                                  "name": "Help",
+                                                  "value": "Help.FHDAutopilotPause",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageDown",
+                                                  "value": "GI,Bm.FHDAutopilot.PausD",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormal",
+                                                  "value": "GI,Bm.FHDAutopilot.PausN",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormalA",
+                                                  "value": "GI,Bm.FHDAutopilot.PausA",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Kind",
+                                                  "value": "Normal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "KindHit",
+                                                  "value": "Rect",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlocking",
+                                                  "value": "True",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlockingTest",
+                                                  "value": "True",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Name",
+                                                  "value": "FHDAutopilotPauseOff",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "OnPressCode",
+                                                  "block": {
+                                                    "sorted": false,
+                                                    "entries": [
+                                                      {
+                                                        "name": "00",
+                                                        "value": "if(FilmFlags(0) || IsFilm())"
+                                                      },
+                                                      {
+                                                        "name": "01",
+                                                        "block": {
+                                                          "sorted": false,
+                                                          "entries": [
+                                                            {
+                                                              "name": "01",
+                                                              "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1)ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,1);"
+                                                            },
+                                                            {
+                                                              "name": "02",
+                                                              "value": "FilmFlags(3,0);FilmFlags(2,1);"
+                                                            },
+                                                            {
+                                                              "name": "03",
+                                                              "value": "if(!FilmFlags(0) && IsFilm())ButtonClick('StarMap','PM_Break');"
+                                                            },
+                                                            {
+                                                              "name": "03a",
+                                                              "block": {
+                                                                "sorted": false,
+                                                                "entries": [
+                                                                  {
+                                                                    "name": "01",
+                                                                    "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1) || ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==2)"
+                                                                  },
+                                                                  {
+                                                                    "name": "02",
+                                                                    "block": {
+                                                                      "sorted": false,
+                                                                      "entries": [
+                                                                        {
+                                                                          "name": "01",
+                                                                          "value": "if(InterfaceState('StarMap','FHDAutopilotPauseOff')>=0 && InterfaceState('StarMap','FHDAutopilotPauseOn')>=0)"
+                                                                        },
+                                                                        {
+                                                                          "name": "02",
+                                                                          "block": {
+                                                                            "sorted": false,
+                                                                            "entries": [
+                                                                              {
+                                                                                "name": "01",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOff',0);"
+                                                                              },
+                                                                              {
+                                                                                "name": "02",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOn',1);"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "name": "04",
+                                                              "value": "exit;"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "name": "02",
+                                                        "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.PauseToggle'));"
+                                                      },
+                                                      {
+                                                        "name": "03",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;"
+                                                      },
+                                                      {
+                                                        "name": "04",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))exit;"
+                                                      },
+                                                      {
+                                                        "name": "05",
+                                                        "value": "if(CurrentForm()!='StarMap' || GetShipPlanet(Player()) || GetShipRuins(Player()))exit;"
+                                                      },
+                                                      {
+                                                        "name": "06",
+                                                        "value": "if(!ShipInNormalSpace(Player()) || IsFilm() || FilmFlags(0) || ScriptItemActionType(t_OnStep))exit;"
+                                                      },
+                                                      {
+                                                        "name": "07",
+                                                        "value": "str nativeKickTurn=CurTurn()+'';"
+                                                      },
+                                                      {
+                                                        "name": "08",
+                                                        "value": "if(ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2)==nativeKickTurn)exit;"
+                                                      },
+                                                      {
+                                                        "name": "09",
+                                                        "value": "ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2,nativeKickTurn);"
+                                                      },
+                                                      {
+                                                        "name": "10",
+                                                        "value": "ButtonClick('StarMap','PM_EndTurn');"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Pos",
+                                                  "value": "82,0,-1",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Size",
+                                                  "value": "45,31",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Style",
+                                                  "value": "Style.GB.SoundNormal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              2,
+                                              0
+                                            ]
+                                          },
+                                          {
+                                            "name": "GraphButton",
+                                            "block": {
+                                              "sorted": true,
+                                              "entries": [
+                                                {
+                                                  "name": "Active",
+                                                  "value": "False",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Help",
+                                                  "value": "Help.FHDAutopilotPause",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageDown",
+                                                  "value": "GI,Bm.FHDAutopilot.PausRD",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormal",
+                                                  "value": "GI,Bm.FHDAutopilot.PausRN",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "ImageNormalA",
+                                                  "value": "GI,Bm.FHDAutopilot.PausRA",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Kind",
+                                                  "value": "Normal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "KindHit",
+                                                  "value": "Rect",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlocking",
+                                                  "value": "True",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "MouseBlockingTest",
+                                                  "value": "True",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Name",
+                                                  "value": "FHDAutopilotPauseOn",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "OnPressCode",
+                                                  "block": {
+                                                    "sorted": false,
+                                                    "entries": [
+                                                      {
+                                                        "name": "00",
+                                                        "value": "if(FilmFlags(0) || IsFilm())"
+                                                      },
+                                                      {
+                                                        "name": "01",
+                                                        "block": {
+                                                          "sorted": false,
+                                                          "entries": [
+                                                            {
+                                                              "name": "01",
+                                                              "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1)ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,1);"
+                                                            },
+                                                            {
+                                                              "name": "02",
+                                                              "value": "FilmFlags(3,0);FilmFlags(2,1);"
+                                                            },
+                                                            {
+                                                              "name": "03",
+                                                              "value": "if(!FilmFlags(0) && IsFilm())ButtonClick('StarMap','PM_Break');"
+                                                            },
+                                                            {
+                                                              "name": "03a",
+                                                              "block": {
+                                                                "sorted": false,
+                                                                "entries": [
+                                                                  {
+                                                                    "name": "01",
+                                                                    "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1) || ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==2)"
+                                                                  },
+                                                                  {
+                                                                    "name": "02",
+                                                                    "block": {
+                                                                      "sorted": false,
+                                                                      "entries": [
+                                                                        {
+                                                                          "name": "01",
+                                                                          "value": "if(InterfaceState('StarMap','FHDAutopilotPauseOff')>=0 && InterfaceState('StarMap','FHDAutopilotPauseOn')>=0)"
+                                                                        },
+                                                                        {
+                                                                          "name": "02",
+                                                                          "block": {
+                                                                            "sorted": false,
+                                                                            "entries": [
+                                                                              {
+                                                                                "name": "01",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOff',0);"
+                                                                              },
+                                                                              {
+                                                                                "name": "02",
+                                                                                "value": "InterfaceState('StarMap','FHDAutopilotPauseOn',1);"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "name": "04",
+                                                              "value": "exit;"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "name": "02",
+                                                        "value": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.PauseToggle'));"
+                                                      },
+                                                      {
+                                                        "name": "03",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;"
+                                                      },
+                                                      {
+                                                        "name": "04",
+                                                        "value": "if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))exit;"
+                                                      },
+                                                      {
+                                                        "name": "05",
+                                                        "value": "if(CurrentForm()!='StarMap' || GetShipPlanet(Player()) || GetShipRuins(Player()))exit;"
+                                                      },
+                                                      {
+                                                        "name": "06",
+                                                        "value": "if(!ShipInNormalSpace(Player()) || IsFilm() || FilmFlags(0) || ScriptItemActionType(t_OnStep))exit;"
+                                                      },
+                                                      {
+                                                        "name": "07",
+                                                        "value": "str nativeKickTurn=CurTurn()+'';"
+                                                      },
+                                                      {
+                                                        "name": "08",
+                                                        "value": "if(ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2)==nativeKickTurn)exit;"
+                                                      },
+                                                      {
+                                                        "name": "09",
+                                                        "value": "ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2,nativeKickTurn);"
+                                                      },
+                                                      {
+                                                        "name": "10",
+                                                        "value": "ButtonClick('StarMap','PM_EndTurn');"
+                                                      }
+                                                    ]
+                                                  },
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Pos",
+                                                  "value": "82,0,-2",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Size",
+                                                  "value": "45,31",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Style",
+                                                  "value": "Style.GB.SoundNormal",
+                                                  "metadata": [
+                                                    0,
+                                                    1
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              3,
+                                              0
+                                            ]
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotControlsContainer",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "-167,353,-11",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "PosAutoCorrection",
+                                            "value": "True",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "PosAutoCorrectionXCoef",
+                                            "value": "0.5",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "PosAutoCorrectionYCoef",
+                                            "value": "0.5",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "127,31",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              },
+                              {
+                                "name": "FHDAutopilotStarMapFrameContainer",
+                                "block": {
+                                  "sorted": true,
+                                  "entries": [
+                                    {
+                                      "name": "Panel",
+                                      "block": {
+                                        "sorted": true,
+                                        "entries": [
+                                          {
+                                            "name": "Active",
+                                            "value": "False",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Image",
+                                            "block": {
+                                              "sorted": false,
+                                              "entries": [
+                                                {
+                                                  "name": "Image",
+                                                  "value": "GI,Bm.FHDAutopilot.StarMapControlFrame"
+                                                },
+                                                {
+                                                  "name": "MouseBlocking",
+                                                  "value": "False"
+                                                },
+                                                {
+                                                  "name": "MouseBlockingTest",
+                                                  "value": "False"
+                                                },
+                                                {
+                                                  "name": "Name",
+                                                  "value": "FHDAutopilotStarMapFrame"
+                                                },
+                                                {
+                                                  "name": "Pos",
+                                                  "value": "0,0,-1"
+                                                },
+                                                {
+                                                  "name": "Size",
+                                                  "value": "226,54"
+                                                }
+                                              ]
+                                            },
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Name",
+                                            "value": "FHDAutopilotStarMapFrameContainer",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Pos",
+                                            "value": "-117,307,-4",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "PosAutoCorrection",
+                                            "value": "True",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "PosAutoCorrectionXCoef",
+                                            "value": "0.0",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "PosAutoCorrectionYCoef",
+                                            "value": "0.5",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          },
+                                          {
+                                            "name": "Size",
+                                            "value": "226,54",
+                                            "metadata": [
+                                              0,
+                                              1
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "metadata": [
+                                        0,
+                                        1
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "metadata": [
+                                  0,
+                                  1
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": [
+                            0,
+                            1
+                          ]
+                        }
+                      ]
+                    },
+                    "metadata": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              },
+              "metadata": [
+                0,
+                1
+              ]
+            }
+          ]
+        },
+        "metadata": [
+          0,
+          1
+        ]
+      }
+    ]
+  }
+}
