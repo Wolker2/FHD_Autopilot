@@ -1,0 +1,162 @@
+{
+  "format": "cachedata",
+  "seed": -319409088,
+  "root": {
+    "entries": [
+      {
+        "kind": "block",
+        "name": "Bm",
+        "value": {
+          "entries": [
+            {
+              "kind": "block",
+              "name": "FHDAutopilot",
+              "value": {
+                "entries": [
+                  {
+                    "kind": "parameter",
+                    "name": "AvtoA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2AvtoA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "AvtoD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2AvtoD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "AvtoGA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2AvtoGA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "AvtoGD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2AvtoGD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "AvtoGN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2AvtoGN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "AvtoN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2AvtoN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "FullA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2FullA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "FullD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2FullD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "FullN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2FullN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "FullRA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2FullRA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "FullRN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2FullRN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "HangarPanel",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\HangarPanel.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "PausA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2PausA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "PausD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2PausD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "PausN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2PausN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "PausRA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2PausRA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "PausRD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2PausRD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "PausRN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2PausRN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "RepairA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2RepairA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "RepairD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2RepairD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "RepairN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2RepairN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "RepairRA",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2RepairRA.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "RepairRD",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2RepairRD.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "RepairRN",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\2RepairRN.gi"
+                  },
+                  {
+                    "kind": "parameter",
+                    "name": "StarMapControlFrame",
+                    "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\UI\\StarMapControlFrame.gi"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "block",
+        "name": "Script",
+        "value": {
+          "entries": [
+            {
+              "kind": "parameter",
+              "name": "Mod_FHD_Autopilot_Controller",
+              "value": "Mods\\FHD_MODS\\FHD_Autopilot\\DATA\\Script\\Mod_FHD_Autopilot_Controller.scr"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

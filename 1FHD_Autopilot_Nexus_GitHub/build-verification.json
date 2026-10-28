@@ -1,0 +1,72 @@
+{
+  "runtime_files": 31,
+  "source_derived_files": 31,
+  "prebuilt_runtime_files_used": false,
+  "byte_identical_to_original": true,
+  "different_files": [],
+  "dat_files": 3,
+  "script_files": 1,
+  "gi_images": 26,
+  "resource_audit": {
+    "cache_references_checked": 26,
+    "missing": []
+  },
+  "python": "3.12.14",
+  "zlib": "1.3.2",
+  "sha256": {
+    "CFG/CacheData.dat": "12819d180007fbf29caaa582e60784eddbf8bf0c60a746b10e5eb4aabf90f738",
+    "CFG/Main.dat": "963424c9c74fbe7e60e6d16cffba1578ed98d7076d59169d02aff6e74c6c96f8",
+    "CFG/Rus/Lang.dat": "e81083d9f0abf248d05c751998a8cfdc04fc6e6e1e7656b86cf02b4fa841d1e1",
+    "DATA/Script/Mod_FHD_Autopilot_Controller.scr": "e0edd90d94d470b9dbbcc8c1644e845937491f7bb34a21bf8af6f45daf9f3077",
+    "DATA/UI/2AvtoA.gi": "4d745d7e890c95aedeba3f136085ef1ca4aa52db827259f3a6b705fcec28dd83",
+    "DATA/UI/2AvtoD.gi": "34e61cecda3610924072bdb5b5efd8ba3747e74d18a875bba86ef05a86f9379a",
+    "DATA/UI/2AvtoGA.gi": "21a60a5f3df454f5e6fc4ee85f990401b54688bb57768ffa78359d0163860138",
+    "DATA/UI/2AvtoGD.gi": "44282632aa7ed90cba9abe9b6e080b4f3bbdb0c0960c54086f3024b4cb1f80b9",
+    "DATA/UI/2AvtoGN.gi": "2833ab082278c0f4532c43ad9886f3cd7d199f922fa0b3a852e6e7ae2c1ee05c",
+    "DATA/UI/2AvtoN.gi": "e8bdaefd9930736cbb2a72a4c6427a62c60ac39f096cc8a988fee2d6db9e9dc7",
+    "DATA/UI/2FullA.gi": "07581bc38ce4beb01b976c13f41280cd74a7472327ac11006a1391fc87801456",
+    "DATA/UI/2FullD.gi": "613a0574b59ff6965478dd9ce3e96e8803449f4f0e90cb7ce7ea45a65304bdbd",
+    "DATA/UI/2FullN.gi": "a098c6b66cbee3010a7b1758c0d4b505106885a2ad6b51ab6faff4d2d79e5016",
+    "DATA/UI/2FullRA.gi": "3119c35aaa21aec717d9754ef7963b6b3d48e7fa71fb2549180ad5ef3355bf39",
+    "DATA/UI/2FullRD.gi": "c0437d4f4b3ec00e42663dfc590e9daf3e233910d8a3c67fe2e9f932a1462e58",
+    "DATA/UI/2FullRN.gi": "7be6608e02b6e194edf04af8ab200475278c3dc2a6efc83169b955e4021e5963",
+    "DATA/UI/2PausA.gi": "84d5f2b6b08ccc2c9536230794334b5d7b950041a41769bf58571f4d38b94fa9",
+    "DATA/UI/2PausD.gi": "37266f6eb0e9e895e42f5d4ac1b1f7f521ea8d061ef54c105b5c6f354fc2bd33",
+    "DATA/UI/2PausN.gi": "f390a5781e87d760342ad852e168696f25323da35177bd91375dee4680610f76",
+    "DATA/UI/2PausRA.gi": "0f4666d4047903cc1e12d7567ec4176f52187149eea6edc8312808c7138e436a",
+    "DATA/UI/2PausRD.gi": "72ec6154b5c72be450d0c7e00c68bc86409d62dd2d60c2ebdebc1f2c82bb4c04",
+    "DATA/UI/2PausRN.gi": "99d84da1f44397b6a1bb9deb81026ba50a85814f107743a3ea700d68e48cdfba",
+    "DATA/UI/2RepairA.gi": "f30ad1ff9d018f854eaa5a1b9003a330247efa508228d6385322cca422e69708",
+    "DATA/UI/2RepairD.gi": "638e3c6bc691845a36799a9b03b45ff8abd296b694e060db301ad962eea58a79",
+    "DATA/UI/2RepairN.gi": "33a40eb448ef393e34e3985e28750aea4077b526df9a3011ee16319716f6c984",
+    "DATA/UI/2RepairRA.gi": "f6340da926daae722330b628bac4a41a32f94641fbe556a0ffdfab2266d2485a",
+    "DATA/UI/2RepairRD.gi": "847c69f1f7b8a2e85ee9bd9525dfa35bc2c051916c05b20b170b9a77e8f354ae",
+    "DATA/UI/2RepairRN.gi": "777490e12223083ac42b7c0a720b3e3c3899f357c86734c06821dd1627f7fd31",
+    "DATA/UI/HangarPanel.gi": "7eab2be3f01c2f2a893dabf9d2ff8a2862d47ab1c9cfec51a4169aad3073e60f",
+    "DATA/UI/StarMapControlFrame.gi": "4da6967b5667383cc97f5711c9192716b4054e1c359f8b7740af727e16259a2c",
+    "ModuleInfo.txt": "37f5de1a4a93b1d976121d9e5e6b888ca88926db65202af8501731548b9ecd41"
+  },
+  "package_sha256": "43680cb0a09c1c5df1599a4a3657f679b498dbd22b83d27044938e73d587968d",
+  "rscript_executed": false,
+  "game_executed": false,
+  "input_archive_sha256": "d00d481cf2fd313485b9b4abd5d6da811779f6cea1ba8254820592096ac8a264",
+  "checks": {
+    "python_tests_passed": 4,
+    "python_tests_failed": 0,
+    "source_only_build": "PASS",
+    "rson_structural_issues": 0,
+    "scr_parsed_bytes": 1117,
+    "dat_roundtrips": 3,
+    "gi_roundtrips": 26,
+    "original_hashes_matched": "31/31"
+  },
+  "source_provenance": {
+    "author": "Prolog_D",
+    "declared_version": "2.02",
+    "source_txt_matches_binary": {
+      "SOURCE/CFG/Main.txt": false,
+      "SOURCE/CFG/Rus/Lang.txt": false
+    },
+    "authoritative_dat_source": "Recovered from the supplied actual DAT files; original mismatching TXT exports are excluded."
+  }
+}

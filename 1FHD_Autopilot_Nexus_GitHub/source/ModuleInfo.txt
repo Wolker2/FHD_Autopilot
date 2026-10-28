@@ -1,0 +1,26 @@
+Name=FHD_Autopilot
+Section=FHD_MODS
+Author=Prolog_D
+Dependence=
+Conflict=
+Priority=3
+Languages=Rus
+SmallDescription=<color=0,132,15>Автопилот для межсистемных перелётов</color>
+SmallDescription=<color=255,215,0>ver.2.02 — 14.09.2026</color>
+SmallDescription=Маршрут по открытым системам, технические остановки, платная заправка и ремонт.
+SmallDescription=АВТО отменяет маршрут; ПАУЗА сохраняет назначение.
+SmallDescription=(Мод можно <color=0,150,15>подключать</color>/<color=150,0,15>отключать</color> в любое время игры)
+FullDescription=Прокладывает кратчайший по суммарной длине путь через выбранные системы с учётом дальности двигателя и вместимости бака. Доставляет корабль к выбранной планете или станции.
+FullDescription=Во время активного полёта подавляет входящие вызовы кораблей. На паузе и после завершения снимает установленный им запрет связи.
+FullDescription=Заправка и ремонт оплачиваются из текущих средств игрока на технической остановке. Сохраняются ограничения ремонта артефактов и функции ангара.
+SmallDescription=------------------------------------  <color=0,200,255>ENG</color>  ----------------------------------------
+FullDescription= ------------------------------------  <color=0,200,255>ENG</color>  ----------------------------------------
+Languages=Eng
+SmallDescription=<color=0,132,15>Autopilot for Inter-System Flights</color>
+SmallDescription=<color=255,215,0>ver.2.02 — 14.09.2026</color>
+SmallDescription=Routes through explored systems, technical layovers, paid refueling, and repairs.
+SmallDescription=AUTO cancels the route; PAUSE keeps the destination.
+SmallDescription=(The mod can be <color=0,150,15>enabled</color>/<color=150,0,15>disabled</color> at any time during the game)
+FullDescription=Plots the shortest route by total distance through selected systems, factoring in engine jump range and fuel tank capacity. Guides the ship to the target planet or station.
+FullDescription=Mutes incoming hail calls from ships while actively cruising. Lifting the communication block upon pause or trip completion.
+FullDescription=Refueling and repairs are deducted from the player's available credits at technical stops. Artifact repair restrictions and hangar features remain intact.
