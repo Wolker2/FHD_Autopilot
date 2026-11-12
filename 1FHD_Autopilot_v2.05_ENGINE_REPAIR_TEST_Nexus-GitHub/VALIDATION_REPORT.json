@@ -1,0 +1,17 @@
+{
+  "version": "2.05_ENGINE_REPAIR_TEST",
+  "original_zip_sha256": "4207a89eee9690403e135bffd18647654a035d28f681d3db213b0cb376ad7753",
+  "original_game_files": 37,
+  "original_gi_files": 29,
+  "png_editable_files": 29,
+  "dat_json_editable_files": 3,
+  "original_source_txt_files": 3,
+  "compiled_scr_original_only": 1,
+  "source_and_editable_files": 66,
+  "all_source_exports_verified": true,
+  "dat_roundtrip_byte_exact": true,
+  "moduleinfo_cp1251_roundtrip": true,
+  "clean_install_sha256_exact": true,
+  "game_tested": false,
+  "engine_repair_tested": false
+}

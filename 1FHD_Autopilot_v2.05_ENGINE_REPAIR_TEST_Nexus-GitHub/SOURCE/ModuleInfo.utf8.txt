@@ -1,0 +1,26 @@
+Name=FHD_Autopilot
+Section=FHD_MODS
+Author=Prolog_D
+Dependence=
+Conflict=
+Priority=3
+Languages=Rus
+SmallDescription=<color=0,132,15>Автопилот для межсистемных перелётов</color>
+SmallDescription=<color=255,215,0>ver.2.05 - TEST</color>
+SmallDescription=Маршрут только через системы Коалиции и пиратов, безопасные остановки, ванильные цены.
+SmallDescription=АВТО отменяет маршрут; ПАУЗА сохраняет назначение.
+SmallDescription=(Мод можно <color=0,150,15>подключать</color>/<color=150,0,15>отключать</color> в любое время игры)
+FullDescription=Прокладывает кратчайший маршрут исключительно через открытые системы Коалиции и пиратов с учётом дальности двигателя и вместимости топливного бака. Доставляет корабль к выбранной безопасной планете или невраждебной станции.
+FullDescription=На техническую остановку для ремонта и дозаправки заходит только на безопасные заселённые планеты (Коалиция и пираты, хорошее или нормальное отношение) и невраждебные станции. Во время активного полёта подавляет входящие вызовы кораблей.
+FullDescription=Все цены на топливо, ремонт корпуса, оборудования, артефактов и пополнение ракет привязаны к формулам оригинальной игры (с учётом расы планеты, удачи, ГТУ, звания и скидок станций).
+SmallDescription=------------------------------------  <color=0,200,255>ENG</color>  ----------------------------------------
+FullDescription= ------------------------------------  <color=0,200,255>ENG</color>  ----------------------------------------
+Languages=Eng
+SmallDescription=<color=0,132,15>Autopilot for Inter-System Flights</color>
+SmallDescription=<color=255,215,0>ver.2.05 - MAP ROUTE TEST</color>
+SmallDescription=Routes only through Coalition and Pirate systems, safe layovers, vanilla pricing.
+SmallDescription=AUTO cancels the route; PAUSE keeps the destination.
+SmallDescription=(The mod can be <color=0,150,15>enabled</color>/<color=150,0,15>disabled</color> at any time during the game)
+FullDescription=Plots the shortest route strictly through explored Coalition and Pirate systems, factoring in engine jump range and fuel tank capacity. Guides the ship to the selected safe planet or non-hostile station.
+FullDescription=Lands for refueling and repairs only on safe inhabited planets and non-hostile stations. Mutes incoming ship hails while actively cruising and lifts the block upon pause or arrival.
+FullDescription=All fuel, hull, equipment, artifact repair, and missile rearm prices follow authentic Space Rangers HD game formulas (including planet race, luck difficulty, GTU, military rank, and station discounts).

@@ -1,0 +1,1729 @@
+Help ~{
+    FHDAutopilotMapAccept=Принять маршрут
+    FHDAutopilotPause=Поставить автопилот на паузу
+    FHDAutopilotRepairAll=Починить всё установленное оборудование кроме Артефактов и корпуса
+    FHDAutopilotRepairAllDamaged=Оборудование повреждено.
+    FHDAutopilotReloadMissiles=Пополнить боезапас.
+    FHDAutopilotReloadMissilesNeeded=У ракетного оружия не хватает зарядов.
+    FHDAutopilotToggle=Запустить автопилот.
+}
+Script ^{
+    FHDAutopilot ^{
+        AfterStep ~{
+            0000=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyPauseRequest'));
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0002=if(GetShipPlanet(Player()) || GetShipRuins(Player()))
+            0003 ~{
+                0004=FilmFlags(3,0);
+                0005=exit;
+            }
+            0004=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.MuteComms'));
+            0005=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+        }
+        ApplyPauseRequest ~{
+            01=if(!ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))exit;
+            02=int pauseRequestStatus=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1);
+            03=if(pauseRequestStatus==1)ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1,2);
+            04=if(pauseRequestStatus!=1 && pauseRequestStatus!=2)
+            05 ~{
+                01=ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,0);
+                02=exit;
+            }
+            06=FilmFlags(3,0);FilmFlags(2,1);
+            07=if(FilmFlags(0) || IsFilm())exit;
+            08=ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,0);
+            09=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.PauseNow'));
+            10=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+        }
+        ApplyStationArtDiscount ^{
+            01=int result=base_cost;
+            02=if(base_cost<1 || !station)exit;
+            03=if(!(ObjectType(station)==4))exit;
+            04=str stType=ShipType(station);
+            05=int licPos=findsubstr(stType,'_licensed');
+            06=if(-1<licPos)stType=substr(stType,0,licPos);
+            07=if(stType=='SB')result=round(0.84*base_cost);
+            08=else if(stType=='PB')
+            09 ~{
+                01=int pbArtBase=round(0.84*base_cost);
+                02=int pbDisc=round((100.0*ShipStatus(Player(),1))/130.0)+1;
+                03=if(80<pbDisc)pbDisc=80;
+                04=if(pbDisc<0)pbDisc=0;
+                05=result=round(pbArtBase-((pbDisc*1.0)/100.0)*pbArtBase);
+            }
+            10=else if(stType=='TC')result=round(1.15*base_cost);
+            11=else if(stType=='PlayerMB')result=round(0.25*base_cost);
+            12=if(result<1)result=1;
+        }
+        ApplyStationItemDiscount ^{
+            01=int result=base_cost;
+            02=if(base_cost<1 || !station)exit;
+            03=if(!(ObjectType(station)==4))exit;
+            04=str stType=ShipType(station);
+            05=int licPos=findsubstr(stType,'_licensed');
+            06=if(-1<licPos)stType=substr(stType,0,licPos);
+            07=if(stType=='WB')
+            08 ~{
+                01=float wbMult=0.90-(0.10*ShipRank(Player()));
+                02=if(wbMult<0.20)wbMult=0.20;
+                03=if(1.0<wbMult)wbMult=1.0;
+                04=result=round(wbMult*base_cost);
+            }
+            09=else if(stType=='PB')
+            10 ~{
+                01=int pbDisc=round((100.0*ShipStatus(Player(),1))/130.0)+1;
+                02=if(80<pbDisc)pbDisc=80;
+                03=if(pbDisc<0)pbDisc=0;
+                04=result=round(base_cost-((pbDisc*1.0)/100.0)*base_cost);
+            }
+            11=else if(stType=='TC')result=round(0.80*base_cost);
+            12=else if(stType=='PlayerMB')result=round(0.25*base_cost);
+            13=if(result<1)result=1;
+        }
+        ArtifactRepairAllowed ~{
+            01=int result=0;
+            02=if(!station)exit;
+            03=if(!(ObjectType(station)==4))exit;
+            04=str artifactStationType=ShipType(station);
+            05=if(artifactStationType=='SB' || artifactStationType=='PB' || artifactStationType=='TC' || artifactStationType=='PlayerMB' || -1<findsubstr(artifactStationType,'_licensed'))result=1;
+        }
+        Cancel ~{
+            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.FinalReset'));
+            02=if(ShipInNormalSpace(Player()) && !GetShipPlanet(Player()) && !GetShipRuins(Player()) && !ShipInHyperSpace(Player()) && !ShipIsTakeoff(Player()) && ShipOrder(Player())!=5 && !IsFilm())OrderNone(Player());
+        }
+        ClearRuntime ~{
+            0001=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',3,0);
+            0002=ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',2,'');
+            0003=ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',3,'');
+            0004=ShipCustomShipInfoData(Player(),'FHDAPRuntime',2,0);
+            0005=ShipCustomShipInfoData(Player(),'FHDAPRuntime',3,0);
+            0006=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',1,'');
+            0007=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',2,'');
+        }
+        ClearServiceSnapshot ~{
+            01=ShipCustomShipInfoData(Player(),'FHDAutopilotServiceSnapshot',1,0);
+            02=ShipCustomShipInfoData(Player(),'FHDAutopilotServiceSnapshot',2,0);
+            03=ShipCustomShipInfoData(Player(),'FHDAutopilotServiceSnapshot',3,0);
+            04=ShipCustomShipInfoTextData(Player(),'FHDAutopilotServiceSnapshot',1,'');
+            05=ShipCustomShipInfoTextData(Player(),'FHDAutopilotServiceSnapshot',2,'');
+            06=ShipCustomShipInfoTextData(Player(),'FHDAutopilotServiceSnapshot',3,'');
+        }
+        Ensure ~{
+            0001=int autopilotCore=ShipFindCustomShipInfoByType(Player(),'FHDAutopilotCore');
+            0002=if(autopilotCore<0)
+            0003 ~{
+                0004=ShipAddCustomShipInfo(Player(),'FHDAutopilotCore','NoShow',0,0,0,'','','');
+                0005=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3,HullHP(Player()));
+                0006=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'0');
+            }
+            0008=int serviceSnapshot=ShipFindCustomShipInfoByType(Player(),'FHDAutopilotServiceSnapshot');
+            0009=if(serviceSnapshot<0)
+            0010 ~{
+                0011=ShipAddCustomShipInfo(Player(),'FHDAutopilotServiceSnapshot','NoShow',0,0,0,'','','');
+            }
+            0013=int autopilotMem=ShipFindCustomShipInfoByType(Player(),'FHDAutopilotMem');
+            0014=if(autopilotMem<0)
+            0015 ~{
+                0016=ShipAddCustomShipInfo(Player(),'FHDAutopilotMem','NoShow',0,0,0,'','','');
+            }
+            0018=if(ShipFindCustomShipInfoByType(Player(),'FHDAPRuntime')<0)ShipAddCustomShipInfo(Player(),'FHDAPRuntime','NoShow');
+            0019=if(ShipFindCustomShipInfoByType(Player(),'FHDAutopilotPauseRequest')<0)ShipAddCustomShipInfo(Player(),'FHDAutopilotPauseRequest','NoShow');
+        }
+        FinalReset ~{
+            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HardReset'));
+        }
+        FindNextHop ^{
+            01=dword startStar=GalaxyStar(start_id-1);
+            02=dword targetStar=GalaxyStar(target_id-1);
+            03=dword result=0;
+            04=if(!startStar || !targetStar || jump_range<1)exit;
+            05=int targetAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsRouteStarAllowed'),'star',targetStar,'result');
+            06=if(!targetAllowed)exit;
+            07=if(start_id==target_id)
+            08 ~{
+                01=result=targetStar;
+                02=exit;
+            }
+            09=int n=GalaxyStars();
+            10=unknown dist=newarray(n);
+            11=unknown prev=newarray(n);
+            12=unknown used=newarray(n);
+            13=int i=0;
+            14=int j=0;
+            15=for(i=0;i<n;i=i+1)
+            16 ~{
+                01=dist[i]=1000000000;
+                02=prev[i]=-1;
+                03=used[i]=0;
+            }
+            17=int startIndex=start_id-1;
+            18=int targetIndex=target_id-1;
+            19=dist[startIndex]=0;
+            20=for(i=0;i<n;i=i+1)
+            21 ^{
+                01=int best=-1;
+                02=int bestDist=1000000000;
+                03=for(j=0;j<n;j=j+1)
+                04 ^{
+                    01=if(used[j])continue;
+                    02=if(dist[j]<bestDist)
+                    03 ~{
+                        01=best=j;
+                        02=bestDist=dist[j];
+                    }
+                }
+                05=if(best<0)break;
+                06=if(best==targetIndex)break;
+                07=used[best]=1;
+                08=dword fromStar=GalaxyStar(best);
+                09=if(!fromStar)continue;
+                10=for(j=0;j<n;j=j+1)
+                11 ^{
+                    01=if(used[j] || j==best)continue;
+                    02=dword toStar=GalaxyStar(j);
+                    03=if(!toStar)continue;
+                    04=if(!SectorVisible(StarToCon(toStar)))continue;
+                    05=if(StarCustomFaction(toStar)!='')continue;
+                    06=int toStarOwner=StarOwner(toStar);
+                    07=if(toStarOwner!=0 && toStarOwner!=2)continue;
+                    08=int leg=round(sqrt(Dist2Star(fromStar,toStar)));
+                    09=if(leg<1 || jump_range<leg)continue;
+                    10=int candidate=dist[best]+leg;
+                    11=if(candidate<dist[j])
+                    12 ~{
+                        01=dist[j]=candidate;
+                        02=prev[j]=best;
+                    }
+                }
+            }
+            22=if(-1<prev[targetIndex])
+            23 ~{
+                01=int node=targetIndex;
+                02=while(-1<prev[node] && prev[node]!=startIndex)node=prev[node];
+                03=if(prev[node]==startIndex)result=GalaxyStar(node);
+            }
+            24=free(dist);
+            25=free(prev);
+            26=free(used);
+        }
+        FindServiceObject ^{
+            01=dword result=0;
+            02=dword star=ShipStar(Player());
+            03=if(!star)exit;
+            04=int starAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsRouteStarAllowed'),'star',star,'result');
+            05=if(!starAllowed)exit;
+            06=int bestDist=2000000000;
+            07=int i=0;
+            08=dword obj=0;
+            09=int d=0;
+            10=int isSafe=0;
+            11=int artifactNeedsService=0;
+            12=for(i=0;i<ShipArts(Player());i=i+1)
+            13 ~{
+                01=dword artCheck=ShipArts(Player(),i);
+                02=if(!artCheck)continue;
+                03=if(!ItemIsInUse(artCheck))continue;
+                04=if(!ItemCanBeBroken(artCheck))continue;
+                05=if(!ShipCanRepairEq(Player(),artCheck))continue;
+                06=if(ItemIsBroken(artCheck) || ItemDurability(artCheck)<70)artifactNeedsService=1;
+            }
+            14=if(artifactNeedsService)
+            15 ^{
+                01=for(i=0;i<StarRuins(star);i=i+1)
+                02 ^{
+                    01=obj=StarRuins(star,i);
+                    02=if(!obj)continue;
+                    03=isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafeStation'),'station',obj,'result');
+                    04=if(!isSafe)continue;
+                    05=int artAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ArtifactRepairAllowed'),'station',obj,'result');
+                    06=if(!artAllowed)continue;
+                    07=d=Dist(Player(),obj);
+                    08=if(d<bestDist)
+                    09 ~{
+                        01=bestDist=d;
+                        02=result=obj;
+                    }
+                }
+                03=if(result)exit;
+            }
+            16=for(i=0;i<StarPlanets(star);i=i+1)
+            17 ^{
+                01=obj=StarPlanets(star,i);
+                02=if(!obj)continue;
+                03=isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafePlanet'),'planet',obj,'result');
+                04=if(!isSafe)continue;
+                05=d=Dist(Player(),obj);
+                06=if(d<bestDist)
+                07 ~{
+                    01=bestDist=d;
+                    02=result=obj;
+                }
+            }
+            18=for(i=0;i<StarRuins(star);i=i+1)
+            19 ^{
+                01=obj=StarRuins(star,i);
+                02=if(!obj)continue;
+                03=isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafeStation'),'station',obj,'result');
+                04=if(!isSafe)continue;
+                05=d=Dist(Player(),obj);
+                06=if(d<bestDist)
+                07 ~{
+                    01=bestDist=d;
+                    02=result=obj;
+                }
+            }
+        }
+        Finish ~{
+            0001=int finalId=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',2);
+            0002=str finalName='назначенную систему';
+            0003=if(finalId>0 && finalId<=GalaxyStars())finalName=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StarDisplayName'),'star',GalaxyStar(finalId-1),'result');
+            0004=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HardReset'));
+            0005=Ether(7,'FHDAutopilot_Arrived_'+CurTurn(),'АВТОПИЛОТ: МАРШРУТ ЗАВЕРШЁН\nКорабль прибыл в систему '+finalName+'.');
+        }
+        FlightWatch ~{
+            01=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            02=int watchHP=HullHP(Player());
+            03=int watchLast=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3);
+            04=if(0<watchLast && watchHP<watchLast)
+            05 ~{
+                01=OrderForsage(Player(),1);
+                02=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'1');
+            }
+            06=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3,watchHP);
+        }
+        GetJumpRange ~{
+            0001=int result=0;
+            0002=dword engine=ShipEqInSlot(Player(),t_Engine);
+            0003=if(!engine)exit;
+            0004=if(ItemIsBroken(engine))exit;
+            0005=dword rangeTank=ShipEqInSlot(Player(),t_FuelTanks);
+            0006=if(!rangeTank)exit;
+            0007=if(ItemIsBroken(rangeTank))exit;
+            0008=result=ShipJump(Player());
+            0009=if(result<1)
+            0010 ~{
+                0001=result=round(GetEquipmentStats(engine,1))+ShipSpecialBonuses(Player(),bonJump);
+            }
+            0011=if(result<0)result=0;
+            0012=int tankCap=max(0,round(GetEquipmentStats(rangeTank,0)));
+            0013=result=min(result,tankCap);
+        }
+        Go ~{
+            0000=if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1)){FilmFlags(3,0);FilmFlags(2,1);exit;}
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0002=if(GetShipPlanet(Player()) || GetShipRuins(Player()))exit;
+            0003=if(!ShipInNormalSpace(Player()) && !ShipInHyperSpace(Player()))exit;
+            0004=dword flightStar=ShipStar(Player());
+            0005=if(!flightStar)exit;
+            0006=str visited=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',3);
+            0007=if(findsubstr(','+visited+',',','+Id(flightStar)+',')<0)
+            0008 ~{
+                0009=if(count(visited))visited=visited+',';
+                0010=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',3,visited+Id(flightStar));
+            }
+            0009=FilmFlags(flightStar,3,1);
+        }
+        HandleFormEnter ~{
+            0000=if(FilmFlags(0) || IsFilm())exit;
+            0001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyPauseRequest'));
+            0002=if(CurrentForm()=='Talk')
+            0003 ~{
+                0003=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.TalkGuard'));
+                0004=exit;
+            }
+            0004=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0005=if(CurrentForm()=='StarMap')ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+            0006=if(CurrentForm()=='Hangar')ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));
+            0007=if(CurrentForm()=='Hangar')ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));
+            0008=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Run'));
+        }
+        HangarIsMissileWeapon ^{
+            01=int result=0;
+            02=if(!item)exit;
+            03=int missileItemType=ItemType(item);
+            04=if(missileItemType==t_Weapon4 || missileItemType==t_Weapon15 || missileItemType==t_Weapon18)
+            05 ~{
+                01=result=1;
+                02=exit;
+            }
+            06=if(missileItemType==t_CustomWeapon)
+            07 ~{
+                01=str missileCustomType=CustomWeaponType(item);
+                02=if(missileCustomType!='' && GetCustomWeaponPrimaryDamageType(missileCustomType)==2)
+                03 ~{
+                    01=result=1;
+                    02=exit;
+                }
+            }
+            08=if(missileItemType>=t_Weapon1 && missileItemType<=t_CustomWeapon && 0<WeaponMaxAmmunition(item))result=1;
+        }
+        HangarMissilesNeeded ^{
+            01=int result=0;
+            02=int i=0;
+            03=dword item=0;
+            04=for(i=0;i<ShipItems(Player());i=i+1)
+            05 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=int isMissileWeapon=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarIsMissileWeapon'),'item',item,'result');
+                05=if(!isMissileWeapon)continue;
+                06=int missingMissiles=MissilesToRearm(item);
+                07=if(0<missingMissiles)
+                08 ~{
+                    01=result=1;
+                    02=exit;
+                }
+            }
+        }
+        HangarReloadMissiles ^{
+            01=int i=0;
+            02=dword item=0;
+            03=int missileWeapons=0;
+            04=int totalMissing=0;
+            05=int isMissileWeapon=0;
+            06=int missingMissiles=0;
+            07=for(i=0;i<ShipItems(Player());i=i+1)
+            08 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=isMissileWeapon=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarIsMissileWeapon'),'item',item,'result');
+                05=if(!isMissileWeapon)continue;
+                06=missileWeapons=missileWeapons+1;
+                07=missingMissiles=MissilesToRearm(item);
+                08=if(0<missingMissiles)totalMissing=totalMissing+missingMissiles;
+            }
+            09=if(missileWeapons<1 || totalMissing<1)
+            10 ~{
+                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));
+                02=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));
+                03=exit;
+            }
+            11=int missileUnitCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaMissileUnitCost'),'result');
+            12=int reloadCost=totalMissing*missileUnitCost;
+            13=int moneyNow=ShipMoney(Player());
+            14=if(moneyNow<reloadCost)
+            15 ~{
+                01=Sound('Sound.NoMoney');
+                02=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));
+                03=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));
+                04=exit;
+            }
+            16=ShipMoney(Player(),moneyNow-reloadCost);
+            17=for(i=0;i<ShipItems(Player());i=i+1)
+            18 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=isMissileWeapon=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarIsMissileWeapon'),'item',item,'result');
+                05=if(!isMissileWeapon)continue;
+                06=missingMissiles=MissilesToRearm(item);
+                07=if(0<missingMissiles)MissilesToRearm(item,missingMissiles);
+            }
+            19=Sound('Sound.Repair');
+            20=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarMissileButton'));
+            21=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarMissileCostHelp'));
+        }
+        HangarRepairAll ^{
+            01=int i=0;
+            02=dword item=0;
+            03=int repairCost=0;
+            04=int damaged=0;
+            05=int itemCostVal=0;
+            06=for(i=0;i<ShipItems(Player());i=i+1)
+            07 ^{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=if(ItemType(item)==t_Hull)continue;
+                05=itemCostVal=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',item,'result');
+                06=if(0<itemCostVal)
+                07 ~{
+                    01=damaged=1;
+                    02=repairCost=repairCost+itemCostVal;
+                }
+            }
+            08=dword dockedStation=GetShipRuins(Player());
+            09=if(dockedStation && 0<repairCost)repairCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyStationItemDiscount'),'base_cost',repairCost,'station',dockedStation,'result');
+            10=if(!damaged)
+            11 ~{
+                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));
+                02=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));
+                03=exit;
+            }
+            12=int moneyNow=ShipMoney(Player());
+            13=if(moneyNow<repairCost)
+            14 ~{
+                01=Sound('Sound.NoMoney');
+                02=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));
+                03=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));
+                04=exit;
+            }
+            15=ShipMoney(Player(),moneyNow-repairCost);
+            16=for(i=0;i<ShipItems(Player());i=i+1)
+            17 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=if(ItemType(item)==t_Hull)continue;
+                05=itemCostVal=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',item,'result');
+                06=if(0<itemCostVal)ItemDurability(item,100);
+            }
+            18=Sound('Sound.Repair');
+            19=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateHangarRepairButton'));
+            20=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ShowHangarRepairCostHelp'));
+        }
+        HangarRepairNeeded ^{
+            01=int result=0;
+            02=int i=0;
+            03=dword item=0;
+            04=int durability=100;
+            05=int itemCostVal=0;
+            06=for(i=0;i<ShipItems(Player());i=i+1)
+            07 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=if(ItemType(item)==t_Hull)continue;
+                05=itemCostVal=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',item,'result');
+                06=if(itemCostVal<1)continue;
+                07=durability=ItemDurability(item);
+                08=if(ItemIsBroken(item) || durability<=90)
+                09 ~{
+                    01=result=1;
+                    02=exit;
+                }
+            }
+        }
+        HardReset ~{
+            0001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0001a=ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,0);
+            0002=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1,0);
+            0003=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ReleaseComms'));
+            0004=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ReleaseFlight'));
+            0005=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',2,0);
+            0006=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3,0);
+            0007=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',1,'');
+            0008=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',2,'');
+            0009=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'0');
+            0010=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+            0011=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2,0);
+            0012=ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',1,'');
+            0013=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+            0014=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearRuntime'));
+            0015=OrderForsage(Player(),0);
+            0016=OrderLock(Player(),0);
+            0017=FilmFlags(2,0);FilmFlags(3,0);
+            0018=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+            0019=SFT('[FHD_Autopilot 2.05] inactive; route and runtime cleared');
+        }
+        InitController ~{
+            0001=int result=1;
+            0002=if(!IsScriptActive('Mod_FHD_Autopilot_Controller'))result=ScriptRun(ShipStar(Player()),GetShipPlanet(Player()),'Mod_FHD_Autopilot_Controller');
+        }
+        IsArtifact ~{
+            01=int result=0;
+            02=if(!item)exit;
+            03=int artifactType=ItemType(item);
+            04=if(artifactType>=t_Artefact && artifactType<=t_ArtFastRacks)result=1;
+        }
+        IsRouteStarAllowed ^{
+            01=int result=0;
+            02=if(!star)exit;
+            03=if(!SectorVisible(StarToCon(star)))exit;
+            04=if(StarCustomFaction(star)!='')exit;
+            05=int sysOwner=StarOwner(star);
+            06=if(sysOwner==0 || sysOwner==2)result=1;
+        }
+        IsSafePlanet ^{
+            01=int result=0;
+            02=if(!planet)exit;
+            03=if(NoLanding(planet))exit;
+            04=if(PlanetCustomFaction(planet)!='')exit;
+            05=int pOwner=PlanetOwner(planet);
+            06=if(pOwner==None || pOwner==Kling)exit;
+            07=if((pOwner<0 || 4<pOwner) && pOwner!=PirateClan)exit;
+            08=dword pStar=PlanetToStar(planet);
+            09=if(pStar)
+            10 ~{
+                01=int starOk=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsRouteStarAllowed'),'star',pStar,'result');
+                02=if(!starOk)exit;
+            }
+            11=int relShip=0+RelationToShip(planet,Player());
+            12=int relRanger=0+RelationToRanger(planet,Player());
+            13=int relPlanet=0+GetRelationPlanet(planet,Player());
+            14=if(relShip<30 || relRanger<30 || relPlanet<30)exit;
+            15=result=1;
+        }
+        IsSafeStation ^{
+            01=int result=0;
+            02=if(!station)exit;
+            03=if(!(ObjectType(station)==4))exit;
+            04=if(NoLanding(station))exit;
+            05=if(ShipOwner(station)==Kling)exit;
+            06=if(ShipCustomFaction(station)!='')exit;
+            07=if(ShipStanding(station)==9)exit;
+            08=if(ShipGetBad(station)==Player())exit;
+            09=str stType=ShipType(station);
+            10=if(stType=='Inhibitor' || stType=='InhibitorSmall' || stType=='KB' || stType=='KBSmall' || stType=='Handler' || stType=='HandlerSmall' || stType=='Machpella' || stType=='MachpellaSmall')exit;
+            11=dword sStar=ShipStar(station);
+            12=if(sStar)
+            13 ~{
+                01=int starOk=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsRouteStarAllowed'),'star',sStar,'result');
+                02=if(!starOk)exit;
+            }
+            14=int relShip=0+RelationToShip(station,Player());
+            15=int relRanger=0+RelationToRanger(station,Player());
+            16=if(relShip<10 || relRanger<10)exit;
+            17=result=1;
+        }
+        Kick ~{
+            01=exit;
+        }
+        MapRouteEvent ~{
+            001=function APReadMapRoute(dword origin){
+            002=result='';
+            003=if(!UICheckElement('Galaxy','PathDesPos','IsActive'))exit;
+            004=str distanceText=UICheckElement('Galaxy','Distance','Text');
+            005=if(distanceText=='')exit;
+            006=result='?';
+            007=int total=distanceText;
+            008=int firstX=UICheckElement('Galaxy','PathDesPos','PosX');
+            009=int firstY=UICheckElement('Galaxy','PathDesPos','PosY');
+            010=int lastX=UICheckElement('Galaxy','Distance','PosX')-15;
+            011=int lastY=UICheckElement('Galaxy','Distance','PosY')+int(UICheckElement('Galaxy','Distance','SizeY')/2);
+            012=dword first=0;dword last=0;dword star=0;
+            013=int firstMatches=0;int lastMatches=0;int i=0;
+            014=int starCount=GalaxyStars();
+            015=for(i=0;i<starCount;i=i+1){
+            016=star=GalaxyStar(i);
+            017=if(!star || !SectorVisible(StarToCon(star)))continue;
+            018=str controlName='gs_'+Id(star);
+            019=int x=UICheckElement('Galaxy',controlName,'PosX');
+            020=if(x!=firstX && x!=lastX)continue;
+            021=int y=UICheckElement('Galaxy',controlName,'PosY');
+            022=if(x==firstX && y==firstY){first=star;firstMatches=firstMatches+1;}
+            023=if(x==lastX && abs(y-lastY)<=1){last=star;lastMatches=lastMatches+1;}
+            024=}
+            025=if(firstMatches!=1 || lastMatches!=1)exit;
+            026=if(first==last && total==round(sqrt(Dist2Star(origin,first)))){result=''+Id(first);exit;}
+            027=str draft=InterfaceText('Galaxy','FHDAutopilotMapDraft');
+            028=if(draft=='' || draft=='?')exit;
+            029=dword previous=origin;
+            030=int distance=0;
+            031=str prefix='';
+            032=while(draft!=''){
+            033=int separator=findsubstr(draft,',');
+            034=str token=draft;
+            035=if(0<=separator)token=substr(draft,0,separator);
+            036=int starId=token;
+            037=star=GalaxyStar(starId-1);
+            038=if(!star || (prefix=='' && star!=first))exit;
+            039=distance=distance+round(sqrt(Dist2Star(previous,star)));
+            040=if(prefix!='')prefix=prefix+',';
+            041=prefix=prefix+token;
+            042=if(star==last && distance==total){result=prefix;exit;}
+            043=previous=star;
+            044=if(separator<0)break;
+            045=draft=substr(draft,separator+1);
+            046=}
+            047=if(last!=previous && distance+round(sqrt(Dist2Star(previous,last)))==total)result=prefix+','+Id(last);
+            048=}
+            049=function APMapRouteEvent(int action){
+            050=if(CurrentForm()!='Galaxy')exit;
+            051=if(InterfaceState('Galaxy','FHDAutopilotMapAccept')!=1)exit;
+            053=dword origin=ShipStar(Player());
+            054=if(!origin)exit;
+            055=str route=APReadMapRoute(origin);
+            056=InterfaceText('Galaxy','FHDAutopilotMapDraft',route);
+            057=if(!action)exit;
+            058=if(route==''){MessageBox('Выберите систему на карте.',1);exit;}
+            059=if(route=='?'){MessageBox('Не удалось прочитать маршрут. Щёлкните по первой системе заново, затем добавьте остальные через Ctrl+ЛКМ.',1);exit;}
+            060=str remaining=route;
+            061=str seen=',';
+            062=str token='';
+            063=while(remaining!=''){
+            064=int separator=findsubstr(remaining,',');
+            065=token=remaining;
+            066=if(0<=separator)token=substr(remaining,0,separator);
+            067=int starId=token;
+            068=dword star=GalaxyStar(starId-1);
+            069=if(!ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsRouteStarAllowed'),'star',star,'result')){
+            070=MessageBox('Маршрут автопилота доступен только через открытые системы Коалиции и пиратов.',1);exit;}
+            071=if(star==origin || 0<=findsubstr(seen,','+token+',')){
+            072=MessageBox('Уберите из маршрута стартовую систему и повторные точки.',1);exit;}
+            075=seen=seen+token+',';
+            076=if(separator<0)break;
+            077=remaining=substr(remaining,separator+1);
+            078=}
+            080=InterfaceText('Galaxy','FHDAutopilotMapResult',token+'|'+route);
+            081=ButtonClick('Galaxy','ButExit');
+            082=}
+            083=APMapRouteEvent(map_action);
+        }
+        MuteComms ~{
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0002=if(!NoTalkToShip(Player()))
+            0003 ~{
+                0004=ShipCustomShipInfoData(Player(),'FHDAPRuntime',1,1);
+                0005=NoTalkToShip(Player(),1);
+            }
+        }
+        NeedsRepair ^{
+            01=int result=0;
+            02=int i=0;
+            03=dword item=0;
+            04=int normalNeedsService=0;
+            05=int artifactNeedsService=0;
+            06=dword hull=ShipEqInSlot(Player(),t_Hull);
+            07=if(hull)
+            08 ~{
+                01=int maxHP=ItemSize(hull);
+                02=int checkHP=HullHP(Player());
+                03=if(0<maxHP && checkHP*100<maxHP*70)normalNeedsService=1;
+            }
+            09=for(i=0;i<ShipItems(Player());i=i+1)
+            10 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=if(ItemType(item)==t_Hull)continue;
+                05=if(!ItemCanBeBroken(item))continue;
+                06=if(!ShipCanRepairEq(Player(),item))continue;
+                07=if(ItemIsBroken(item) || ItemDurability(item)<70)normalNeedsService=1;
+            }
+            11=for(i=0;i<ShipArts(Player());i=i+1)
+            12 ~{
+                01=item=ShipArts(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=if(!ItemCanBeBroken(item))continue;
+                05=if(!ShipCanRepairEq(Player(),item))continue;
+                06=if(ItemIsBroken(item) || ItemDurability(item)<70)artifactNeedsService=1;
+            }
+            13=if(normalNeedsService)result=result+1;
+            14=if(artifactNeedsService)result=result+2;
+        }
+        OnLoad ~{
+            0001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0002=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ReleaseComms'));
+            0003=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ReleaseFlight'));
+            0004=int loadStatus=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1);
+            0005=if(loadStatus==0 || loadStatus==3)ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HardReset'));
+            0006=else ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearRuntime'));
+            0007=FilmFlags(3,0);if(loadStatus==2)FilmFlags(2,1);else FilmFlags(2,0);
+            0008=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.InitController'));
+            0009=if(loadStatus==1)ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.MuteComms'));
+            0010=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+            0011=SFT('[FHD_Autopilot 2.05] loaded');
+            9998=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyPauseRequest'));
+        }
+        OtherControllerActive ~{
+            0001=int result=0;
+            0002=if(IsScriptActive('Mod_AutoBot'))result=ExecuteCodeFromString('int result=IsAutoBotCheatOn;','result');
+        }
+        PauseNow ~{
+            0000=if(FilmFlags(0) || IsFilm())exit;
+            0001=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1,2);
+            0002=SFT('[FHD_Autopilot 2.05] pause cleanup at idle boundary');
+            0003=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearRuntime'));
+            0004=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1,2);
+            0005=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ReleaseComms'));
+            0006=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ReleaseFlight'));
+            0007=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3,HullHP(Player()));
+            0008=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'0');
+            0009=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+            0010=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2,0);
+            0011=ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',1,'');
+            0012=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+            0013=OrderForsage(Player(),0);
+            0014=OrderLock(Player(),0);
+            0015=FilmFlags(3,0);FilmFlags(2,1);
+            0016=if(ShipInNormalSpace(Player()) && !GetShipPlanet(Player()) && !GetShipRuins(Player()) && !ShipInHyperSpace(Player()) && !ShipIsTakeoff(Player()) && ShipOrder(Player())!=5 && !IsFilm() && !FilmFlags(0))OrderNone(Player());
+            0017=Ether(7,'FHDAutopilot_Pause_'+CurTurn(),'АВТОПИЛОТ: ПАУЗА\nМаршрут и точка назначения сохранены. Управление кораблём полностью передано игроку.');
+            0018=exit;
+        }
+        PauseToggle ~{
+            01=if(FilmFlags(0) || IsFilm())exit;
+            02=int legacyPauseStatus=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1);
+            03=if(legacyPauseStatus==2 || ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))
+            04 ~{
+                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.RequestResume'));
+                02=exit;
+            }
+            05=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.RequestPause'));
+        }
+        Process ~{
+            0001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0002=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0003=if(ShipCustomShipInfoData(Player(),'FHDAutopilotMem',3)!=1)exit;
+            0004=if((GetShipPlanet(Player()) || GetShipRuins(Player())) && (ScriptItemActionType(t_OnStep) || (CurrentForm()!='Planet' && CurrentForm()!='PlanetNO' && CurrentForm()!='RuinsTalk' && CurrentForm()!='Hangar')))exit;
+            0005=OrderLock(Player(),0);
+            0006=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.FlightWatch'));
+            0007=if(ShipInHyperSpace(Player()))
+            0008 ~{
+                0009=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                0010=exit;
+            }
+            0012=dword planet=GetShipPlanet(Player());
+            0013=dword station=GetShipRuins(Player());
+            0014=dword grounded=planet;
+            0015=if(!grounded)grounded=station;
+            0016=int inSpace=0;
+            0017=if(ShipInNormalSpace(Player()))inSpace=1;
+            0018=int order=ShipOrder(Player());
+            0019=if(order==5)
+            0020 ~{
+                0021=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                0022=exit;
+            }
+            0024=if(grounded && !inSpace)
+            0025 ~{
+                0026=int serviceAllowed=0;
+                0027=if(planet)serviceAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafePlanet'),'planet',planet,'result');
+                0028=else if(station)serviceAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafeStation'),'station',station,'result');
+                0041=int finalArrival=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2);
+                0042=if(finalArrival==1)
+                0043 ~{
+                    0045=if(serviceAllowed)ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Service'),'result');
+                    0059=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Finish'));
+                    0060=exit;
+                }
+                0062=int done=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1);
+                0063=if(!done)
+                0064 ~{
+                    0065=int ok=1;
+                    0066=if(serviceAllowed)ok=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Service'),'result');
+                    0067=if(!ok)
+                    0068 ~{
+                        0069=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Cancel'));
+                        0070=exit;
+                    }
+                    0071=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,1);
+                }
+                0073=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.TakeOff'));
+                0074=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                0075=exit;
+            }
+            0077=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+            0078=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+            0079=if(ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',2)=='takeoff')ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',2,'');
+            0080=if(order==2 || order==3)
+            0081 ~{
+                0082=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                0083=exit;
+            }
+            0085=dword currentStar=ShipStar(Player());
+            0086=if(!currentStar)
+            0087 ~{
+                0088=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                0089=exit;
+            }
+            0091=str route=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',1);
+            0092=int separator=-1;
+            0093=int segmentId=0;
+            0094=if(0<count(route))
+            0095 ~{
+                0096=separator=findsubstr(route,',');
+                0097=if(separator<0)segmentId=0+route;
+                0098=else segmentId=0+substr(route,0,separator);
+                0099=if(segmentId==Id(currentStar))
+                0100 ~{
+                    0101=if(separator<0)route='';
+                    0102=else route=substr(route,separator+1);
+                    0103=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',1,route);
+                    0104=if(0<count(route))
+                    0105 ~{
+                        0106=separator=findsubstr(route,',');
+                        0107=if(separator<0)segmentId=0+route;
+                        0108=else segmentId=0+substr(route,0,separator);
+                    }
+                    0110=else segmentId=0;
+                }
+            }
+            0113=if(count(route)==0)
+            0114 ~{
+                0115=dword finalLanding=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ResolveLanding'),'result');
+                0116=if(finalLanding && substr(ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',2),0,2)=='S:' && ShipStar(finalLanding)!=currentStar)finalLanding=0;
+                0117=if(!finalLanding)finalLanding=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.FindServiceObject'),'result');
+                0118=if(finalLanding)
+                0119 ~{
+                    0120=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+                    0121=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2,1);
+                    0122=OrderLanding(Player(),finalLanding);
+                    0123=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                    0124=exit;
+                }
+                0125=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StopWithReason'),'reason','В конечной системе нет безопасной планеты или невраждебной станции для посадки.');
+                0126=exit;
+            }
+            0128=if(NoJump())
+            0129 ~{
+                0130=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StopWithReason'),'reason','Игра запрещает прыжки.');
+                0131=exit;
+            }
+            0133=int jumpRange=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.GetJumpRange'),'result');
+            0134=if(jumpRange<1)
+            0135 ~{
+                0136=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StopWithReason'),'reason','Двигатель или топливный бак не позволяет совершить прыжок.');
+                0137=exit;
+            }
+            0139=dword nextStar=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.FindNextHop'),'start_id',Id(currentStar),'target_id',segmentId,'jump_range',jumpRange,'result');
+            0140=if(!nextStar)
+            0141 ~{
+                0142=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StopWithReason'),'reason','Нет безопасного маршрута через системы Коалиции и пиратов в пределах дальности двигателя.');
+                0143=exit;
+            }
+            0145=int nextDistance=round(sqrt(Dist2Star(currentStar,nextStar)));
+            0146=int need=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.NeedsRepair'),'result');
+            0147=int danger=0+ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3);
+            0148=if(ShipFuel(Player())<nextDistance || need || danger)
+            0149 ~{
+                0150=dword serviceObj=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.FindServiceObject'),'result');
+                0151=if(serviceObj && need==2 && !danger && !(ShipFuel(Player())<nextDistance))
+                0152 ~{
+                    0153=int artifactServiceAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ArtifactRepairAllowed'),'station',serviceObj,'result');
+                    0154=if(!artifactServiceAllowed)serviceObj=0;
+                }
+                0156=if(serviceObj)
+                0157 ~{
+                    0158=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+                    0159=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2,0);
+                    0160=OrderLanding(Player(),serviceObj);
+                    0161=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+                    0162=exit;
+                }
+                0164=if(ShipFuel(Player())<nextDistance)
+                0165 ~{
+                    0166=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StopWithReason'),'reason','Топлива не хватает для следующего прыжка, а в системе нет безопасной планеты или невраждебной станции.');
+                    0167=exit;
+                }
+            }
+            0170=OrderJump(Player(),nextStar);
+            0171=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Go'));
+        }
+        ReleaseComms ~{
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAPRuntime',1))NoTalkToShip(Player(),0);
+            0002=ShipCustomShipInfoData(Player(),'FHDAPRuntime',1,0);
+        }
+        ReleaseFlight ~{
+            0001=str visited=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',3);
+            0002=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',3,'');
+            0003=while(count(visited))
+            0004 ~{
+                0005=int comma=findsubstr(visited,',');
+                0006=int starId=0;
+                0007=if(comma<0)
+                0008 ~{
+                    0009=starId=0+visited;
+                    0010=visited='';
+                }
+                0012=else
+                0013 ~{
+                    0014=starId=0+substr(visited,0,comma);
+                    0015=visited=substr(visited,comma+1);
+                }
+                0017=if(starId>0 && starId<=GalaxyStars())FilmFlags(GalaxyStar(starId-1),3,0);
+            }
+        }
+        RequestPause ~{
+            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            02=int requestStatus=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1);
+            03=if(requestStatus==0)
+            04 ~{
+                01=Ether(7,'','АВТОПИЛОТ\nСначала задайте маршрут кнопкой АВТО.');
+                02=exit;
+            }
+            05=if(requestStatus==1)ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,1);
+            06=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyPauseRequest'));
+            07=if(!FilmFlags(0) && !IsFilm())ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+        }
+        RequestResume ~{
+            01=if(FilmFlags(0) || IsFilm())exit;
+            02=if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))
+            03 ~{
+                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyPauseRequest'));
+            }
+            04=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Resume'));
+        }
+        ResolveLanding ^{
+            01=dword result=0;
+            02=str landing=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',2);
+            03=if(landing=='A' || landing=='')
+            04 ~{
+                01=result=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.FindServiceObject'),'result');
+                02=exit;
+            }
+            05=if(count(landing)<3)exit;
+            06=int objectId=0+substr(landing,2);
+            07=int isSafe=0;
+            08=if(substr(landing,0,2)=='P:')
+            09 ~{
+                01=result=IdToPlanet(objectId);
+                02=if(result)isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafePlanet'),'planet',result,'result');
+                03=if(!isSafe)result=0;
+            }
+            10=else if(substr(landing,0,2)=='S:')
+            11 ~{
+                01=result=IdToShip(objectId);
+                02=if(result)isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafeStation'),'station',result,'result');
+                03=if(!isSafe)result=0;
+            }
+        }
+        Resume ~{
+            0000=if(FilmFlags(0) || IsFilm())exit;
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=2)exit;
+            0002=if(ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))exit;
+            0003=SFT('[FHD_Autopilot 2.05] resume at idle boundary');
+            0004=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0005=if(ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OtherControllerActive'),'result'))
+            0006 ~{
+                0033=Ether(7,'','АВТОПИЛОТ\nСначала отключите управление AutoBot. Два автопилота не могут одновременно отдавать приказы кораблю.');
+                0034=exit;
+            }
+            0007=if(!ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.InitController'),'result'))
+            0008 ~{
+                0038=Ether(7,'','АВТОПИЛОТ\nНе удалось запустить обработчик автопилота. Проверьте, что папка мода заменена целиком.');
+                0039=exit;
+            }
+            0009=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3,HullHP(Player()));
+            0010=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'0');
+            0011=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2,0);
+            0015=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+            0016=ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',1,'');
+            0017=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+            0018=OrderForsage(Player(),0);
+            0019=OrderLock(Player(),0);
+            0020=FilmFlags(2,0);FilmFlags(3,0);
+            0021=if(ShipInNormalSpace(Player()) && !GetShipPlanet(Player()) && !GetShipRuins(Player()) && !ShipInHyperSpace(Player()) && !ShipIsTakeoff(Player()) && ShipOrder(Player())!=5 && !IsFilm())OrderNone(Player());
+            0022=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1,1);
+            0023=Ether(7,'FHDAutopilot_Resume_'+CurTurn(),'АВТОПИЛОТ: ПРОДОЛЖЕНИЕ\nПродолжаю путь к сохранённой точке назначения из текущего местоположения.');
+            0024=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearRuntime'));
+            0025=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Run'));
+            0026=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+            0027=exit;
+        }
+        Run ~{
+            0000=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyPauseRequest'));
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0002=if(CurrentForm()=='Talk')
+            0003 ~{
+                0004=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.TalkGuard'));
+                0005=exit;
+            }
+            0004=if(ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OtherControllerActive'),'result'))
+            0005 ~{
+                0009=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StopWithReason'),'reason','Включено управление AutoBot. Отключите его перед запуском автопилота.');
+                0010=exit;
+            }
+            0006=if(ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.TakeOffBoundary'),'result'))exit;
+            0007=if(ShipCustomShipInfoData(Player(),'FHDAutopilotMem',3))exit;
+            0008=if(GetShipPlanet(Player()) || GetShipRuins(Player()))
+            0009 ~{
+                0016=if(ScriptItemActionType(t_OnStep))exit;
+                0017=if(CurrentForm()!='Planet' && CurrentForm()!='PlanetNO' && CurrentForm()!='RuinsTalk' && CurrentForm()!='Hangar')exit;
+            }
+            0010=else if(CurrentForm()!='StarMap' && CurrentForm()!='Jump')exit;
+            0011=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.MuteComms'));
+            0012=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',3,1);
+            0013=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Process'));
+            0014=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',3,0);
+        }
+        SelectLanding ^{
+            01=dword landingStar=GalaxyStar(star_id-1);
+            02=str result='';
+            03=if(!landingStar)exit;
+            04=unknown landingNames=newarray(1);
+            05=unknown landingCodes=newarray(1);
+            06=landingNames[0]='АВТО - ближайшая безопасная планета или невраждебная станция';
+            07=landingCodes[0]='A';
+            08=int i=0;
+            09=dword obj=0;
+            10=int isSafe=0;
+            11=for(i=0;i<StarPlanets(landingStar);i=i+1)
+            12 ~{
+                01=obj=StarPlanets(landingStar,i);
+                02=if(!obj)continue;
+                03=isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafePlanet'),'planet',obj,'result');
+                04=if(!isSafe)continue;
+                05=ArrayAdd(landingNames,'Планета: '+Name(obj));
+                06=ArrayAdd(landingCodes,'P:'+Id(obj));
+            }
+            13=for(i=0;i<StarRuins(landingStar);i=i+1)
+            14 ~{
+                01=obj=StarRuins(landingStar,i);
+                02=if(!obj)continue;
+                03=isSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafeStation'),'station',obj,'result');
+                04=if(!isSafe)continue;
+                05=ArrayAdd(landingNames,'Станция: '+Name(obj));
+                06=ArrayAdd(landingCodes,'S:'+Id(obj));
+            }
+            15=int selected=ListBox('Куда посадить корабль в системе '+StarName(landingStar)+'?\nДоступны только безопасные планеты и невраждебные станции.',landingNames);
+            16=if(-1<selected && selected<ArrayDim(landingCodes))result=landingCodes[selected];
+            17=free(landingNames);
+            18=free(landingCodes);
+        }
+        SelectMapRoute ~{
+            01=str result='';
+            02=int width=UICheckElement('Galaxy','Map','SizeX');
+            03=int height=UICheckElement('Galaxy','Map','SizeY');
+            04=int jumpX=UICheckElement('Galaxy','ButJump','PosX');
+            05=int jumpY=UICheckElement('Galaxy','ButJump','PosY');
+            06=int jumpState=InterfaceState('Galaxy','ButJump');
+            07=InterfaceSize('Galaxy','FHDAutopilotMapObserver',width,height);
+            08=InterfacePos('Galaxy','FHDAutopilotMapObserver',UICheckElement('Galaxy','Map','PosX'),UICheckElement('Galaxy','Map','PosY'),0);
+            09=InterfacePos('Galaxy','FHDAutopilotMapAccept',jumpX,jumpY,0);
+            10=InterfacePos('Galaxy','FHDAutopilotMapHint',max(12,int((width-720)/2)+20),jumpY+40,0);
+            12=InterfaceText('Galaxy','FHDAutopilotMapDraft','');
+            13=InterfaceText('Galaxy','FHDAutopilotMapResult','');
+            14=InterfaceText('Galaxy','FHDAutopilotMapHint','ЛКМ — первая система, Ctrl+ЛКМ — следующие. Последняя точка — конечная.');
+            15=InterfaceState('Galaxy','ButJump',0);
+            16=InterfaceState('Galaxy','FHDAutopilotMapObserver',1);
+            17=InterfaceState('Galaxy','FHDAutopilotMapAccept',1);
+            18=InterfaceState('Galaxy','FHDAutopilotMapHint',1);
+            19=RunChildForm('Galaxy',1);
+            20=result=InterfaceText('Galaxy','FHDAutopilotMapResult');
+            21=InterfaceState('Galaxy','ButJump',jumpState);
+            22=InterfaceState('Galaxy','FHDAutopilotMapObserver',-1);
+            23=InterfaceState('Galaxy','FHDAutopilotMapAccept',-1);
+            24=InterfaceState('Galaxy','FHDAutopilotMapHint',-1);
+            26=InterfaceText('Galaxy','FHDAutopilotMapDraft','');
+            27=InterfaceText('Galaxy','FHDAutopilotMapResult','');
+            28=InterfaceText('Galaxy','FHDAutopilotMapHint','');
+            29=InterfaceSize('Galaxy','FHDAutopilotMapObserver',0,0);
+            30=InterfacePos('Galaxy','FHDAutopilotMapObserver',0,0,0);
+            31=InterfacePos('Galaxy','FHDAutopilotMapAccept',0,0,0);
+            32=InterfacePos('Galaxy','FHDAutopilotMapHint',0,0,0);
+        }
+        SelectStar ^{
+            01=unknown starObjects=newarray(1);
+            02=unknown starNames=newarray(1);
+            03=int result=0;int starCount=0;
+            04=int i=0;
+            05=dword star=0;
+            06=int isAllowed=0;
+            07=for(i=0;i<GalaxyStars();i=i+1)
+            08 ^{
+                01=star=GalaxyStar(i);
+                02=if(!star)continue;
+                03=isAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsRouteStarAllowed'),'star',star,'result');
+                04=if(!isAllowed)continue;
+                05=if(Id(star)==exclude_id)continue;
+                06=if(exclude_id2 && Id(star)==exclude_id2)continue;
+                07=if(!starCount)
+                08 ~{
+                    01=starObjects[0]=star;
+                    02=starNames[0]=StarName(star);
+                    03=starCount=1;
+                }
+                09=else
+                10 ~{
+                    01=ArrayAdd(starObjects,star);
+                    02=ArrayAdd(starNames,StarName(star));
+                    03=starCount=starCount+1;
+                }
+            }
+            09=if(!starCount)
+            10 ~{
+                01=free(starObjects);
+                02=free(starNames);
+                03=result=0;
+                04=exit;
+            }
+            11=if(1<starCount)
+            12 ^{
+                01=int sortPass=0;
+                02=int sortIndex=0;
+                03=int charIndex=0;
+                04=int leftLength=0;
+                05=int rightLength=0;
+                06=int compareLength=0;
+                07=int leftCode=0;
+                08=int rightCode=0;
+                09=int shouldSwap=0;
+                10=str leftName='';
+                11=str rightName='';
+                12=str swapName='';
+                13=dword swapStar=0;
+                14=for(sortPass=0;sortPass<starCount-1;sortPass=sortPass+1)
+                15 ^{
+                    01=for(sortIndex=0;sortIndex<starCount-sortPass-1;sortIndex=sortIndex+1)
+                    02 ^{
+                        01=leftName=lowercase(starNames[sortIndex]);
+                        02=rightName=lowercase(starNames[sortIndex+1]);
+                        03=leftLength=count(leftName);
+                        04=rightLength=count(rightName);
+                        05=compareLength=leftLength;
+                        06=if(rightLength<compareLength)compareLength=rightLength;
+                        07=shouldSwap=0;
+                        08=charIndex=0;
+                        09=while(charIndex<compareLength)
+                        10 ^{
+                            01=leftCode=ord(substr(leftName,charIndex,1));
+                            02=rightCode=ord(substr(rightName,charIndex,1));
+                            03=if(leftCode==1105)leftCode=2155;
+                            04=else if(leftCode==184)leftCode=459;
+                            05=else leftCode=leftCode*2;
+                            06=if(rightCode==1105)rightCode=2155;
+                            07=else if(rightCode==184)rightCode=459;
+                            08=else rightCode=rightCode*2;
+                            09=if(leftCode<rightCode)break;
+                            10=if(rightCode<leftCode)
+                            11 ~{
+                                01=shouldSwap=1;
+                                02=break;
+                            }
+                            12=charIndex=charIndex+1;
+                        }
+                        11=if(!shouldSwap && charIndex==compareLength && rightLength<leftLength)shouldSwap=1;
+                        12=if(shouldSwap)
+                        13 ~{
+                            01=swapName=starNames[sortIndex];
+                            02=starNames[sortIndex]=starNames[sortIndex+1];
+                            03=starNames[sortIndex+1]=swapName;
+                            04=swapStar=starObjects[sortIndex];
+                            05=starObjects[sortIndex]=starObjects[sortIndex+1];
+                            06=starObjects[sortIndex+1]=swapStar;
+                        }
+                    }
+                }
+            }
+            13=for(i=0;i<starCount;i=i+1)
+            14 ~{
+                01=starNames[i]=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StarDisplayName'),'star',starObjects[i],'result');
+            }
+            15=int selected=ListBox(title,starNames);
+            16=result=0;
+            17=if(-1<selected && selected<starCount)result=Id(starObjects[selected]);
+            18=free(starObjects);
+            19=free(starNames);
+        }
+        Service ~{
+            0001=int result=0;
+            0002=dword servicePlanet=GetShipPlanet(Player());
+            0003=dword serviceStation=GetShipRuins(Player());
+            0004=if(!servicePlanet && !serviceStation)exit;
+            0005=int locationSafe=0;
+            0006=if(servicePlanet)locationSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafePlanet'),'planet',servicePlanet,'result');
+            0007=else if(serviceStation)locationSafe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsSafeStation'),'station',serviceStation,'result');
+            0008=if(!locationSafe)exit;
+            0009=dword serviceLocation=servicePlanet;
+            0010=if(!serviceLocation)serviceLocation=serviceStation;
+            0011=result=1;
+            0012=int snapshotTarget=ShipCustomShipInfoData(Player(),'FHDAutopilotServiceSnapshot',1);
+            0013=if(snapshotTarget==(0-Id(serviceLocation)))exit;
+            0014=int artifactRepairAllowed=0;
+            0015=if(serviceStation)artifactRepairAllowed=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ArtifactRepairAllowed'),'station',serviceStation,'result');
+            0016=int preFuel=ShipFuel(Player());
+            0017=dword serviceTank=ShipEqInSlot(Player(),t_FuelTanks);
+            0018=int maxFuel=preFuel;
+            0019=if(serviceTank && !ItemIsBroken(serviceTank))maxFuel=max(preFuel,round(GetEquipmentStats(serviceTank,0)));
+            0020=int missingFuel=max(0,maxFuel-preFuel);
+            0021=int fuelCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaFuelCost'),'amount',missingFuel,'planet',servicePlanet,'result');
+            0022=int moneyNow=ShipMoney(Player());
+            0023=int fuelPaid=0;
+            0024=str serviceName=Name(serviceLocation);
+            0025=if(0<fuelCost && 0<missingFuel)
+            0026 ~{
+                0027=if(moneyNow<fuelCost)
+                0028 ~{
+                    0028a=Sound('Sound.NoMoney');
+                    0029=Ether(7,'','АВТОПИЛОТ - ТЕХНИЧЕСКАЯ ОСТАНОВКА\nМесто: '+serviceName+'\nЗаправка НЕ выполнена: недостаточно кредитов.\nТребуется на заправку: '+fuelCost+' cr. Доступно: '+moneyNow+' cr.');
+                    0030=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+                    0031=result=0;
+                    0032=exit;
+                }
+                0033=ShipMoney(Player(),moneyNow-fuelCost);
+                0034=moneyNow=moneyNow-fuelCost;
+                0035=fuelPaid=fuelCost;
+                0036=ShipRefuel(Player());
+                0037=if(ShipFuel(Player())<maxFuel)ShipFuel(Player(),maxFuel);
+            }
+            0038=int hullRepairCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaHullRepairCost'),'result');
+            0038a=dword serviceEngine=ShipEqInSlot(Player(),t_Engine);
+            0038b=int engineRepairCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',serviceEngine,'result');
+            0039=int eqRepairCost=engineRepairCost;
+            0040=int artRepairCost=0;
+            0041=int i=0;
+            0042=dword item=0;
+            0043=int singleCost=0;
+            0044=for(i=0;i<ShipItems(Player());i=i+1)
+            0045 ~{
+                0001=item=ShipItems(Player(),i);
+                0002=if(!item || item==serviceEngine)continue;
+                0003=if(!ItemIsInUse(item))continue;
+                0004=if(ItemType(item)==t_Hull)continue;
+                0005=singleCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',item,'result');
+                0006=if(0<singleCost)eqRepairCost=eqRepairCost+singleCost;
+            }
+            0046=int totalStdRepairCost=hullRepairCost+eqRepairCost;
+            0047=if(serviceStation && 0<totalStdRepairCost)totalStdRepairCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyStationItemDiscount'),'base_cost',totalStdRepairCost,'station',serviceStation,'result');
+            0048=if(artifactRepairAllowed)
+            0049 ~{
+                0001=for(i=0;i<ShipArts(Player());i=i+1)
+                0002 ~{
+                    0001=item=ShipArts(Player(),i);
+                    0002=if(!item)continue;
+                    0003=if(!ItemIsInUse(item))continue;
+                    0004=singleCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaArtRepairCost'),'art',item,'result');
+                    0005=if(0<singleCost)artRepairCost=artRepairCost+singleCost;
+                }
+                0003=if(serviceStation && 0<artRepairCost)artRepairCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyStationArtDiscount'),'base_cost',artRepairCost,'station',serviceStation,'result');
+            }
+            0050=int repairPaid=0;
+            0051=int stdRepaired=0;
+            0052=int artRepaired=0;
+            0053=if(0<totalStdRepairCost)
+            0054 ~{
+                0001=if(moneyNow<totalStdRepairCost)
+                0002 ~{
+                    0000=Sound('Sound.NoMoney');
+                    0001=Ether(7,'','АВТОПИЛОТ - ТЕХНИЧЕСКАЯ ОСТАНОВКА\nМесто: '+serviceName+'\nЗаправка: '+fuelPaid+' cr.\nТребуется на ремонт корпуса и оборудования: '+totalStdRepairCost+' cr.\nРемонт НЕ выполнен: недостаточно кредитов.');
+                    0002=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+                    0003=result=0;
+                    0004=exit;
+                }
+                0003=ShipMoney(Player(),moneyNow-totalStdRepairCost);
+                0004=moneyNow=moneyNow-totalStdRepairCost;
+                0005=repairPaid=repairPaid+totalStdRepairCost;
+                0006=stdRepaired=1;
+                0007=HullHP(Player(),'To100');
+                0007a=if(0<engineRepairCost)ItemDurability(serviceEngine,100);
+                0008=for(i=0;i<ShipItems(Player());i=i+1)
+                0009 ~{
+                    0001=item=ShipItems(Player(),i);
+                    0002=if(!item || item==serviceEngine)continue;
+                    0003=if(!ItemIsInUse(item))continue;
+                    0004=if(ItemType(item)==t_Hull)continue;
+                    0005=singleCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',item,'result');
+                    0006=if(0<singleCost)ItemDurability(item,100);
+                }
+                0010=if(serviceTank && maxFuel<round(GetEquipmentStats(serviceTank,0)))
+                0011 ~{
+                    0001=maxFuel=round(GetEquipmentStats(serviceTank,0));
+                    0002=if(0<fuelPaid)ShipRefuel(Player());
+                }
+            }
+            0055=if(artifactRepairAllowed && 0<artRepairCost)
+            0056 ~{
+                0001=if(artRepairCost<=moneyNow)
+                0002 ~{
+                    0001=ShipMoney(Player(),moneyNow-artRepairCost);
+                    0002=moneyNow=moneyNow-artRepairCost;
+                    0003=repairPaid=repairPaid+artRepairCost;
+                    0004=artRepaired=1;
+                    0005=for(i=0;i<ShipArts(Player());i=i+1)
+                    0006 ~{
+                        0001=item=ShipArts(Player(),i);
+                        0002=if(!item)continue;
+                        0003=if(!ItemIsInUse(item))continue;
+                        0004=singleCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaArtRepairCost'),'art',item,'result');
+                        0005=if(0<singleCost)ItemDurability(item,100);
+                    }
+                }
+            }
+            0057=OrderForsage(Player(),0);
+            0058=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'0');
+            0059=if(0<repairPaid)Sound('Sound.Repair');
+            0060=if(0<fuelPaid || 0<repairPaid)
+            0061 ~{
+                0001=str fuelInfo='\nЗаправка: не требовалась.';
+                0002=if(0<fuelPaid)fuelInfo='\nЗаправка: выполнена ('+preFuel+' -> '+ShipFuel(Player())+' ед., '+fuelPaid+' cr.).';
+                0003=str artifactInfo='';
+                0004=if(artRepaired)artifactInfo='\nАртефакты: отремонтированы ('+artRepairCost+' cr.).';
+                0005=else if(artifactRepairAllowed && 0<artRepairCost)artifactInfo='\nАртефакты: не хватило кредитов ('+artRepairCost+' cr.).';
+                0005a=str engineInfo='';
+                0005b=if(stdRepaired && 0<engineRepairCost)engineInfo='\nДвигатель: отремонтирован до 100%.';
+                0006=Ether(7,'FHDAutopilotService_'+CurTurn(),'АВТОПИЛОТ - ОБСЛУЖИВАНИЕ\nМесто: '+serviceName+fuelInfo+engineInfo+'\nСтоимость ремонта: '+repairPaid+' cr.\nВсего списано: '+(fuelPaid+repairPaid)+' cr.'+artifactInfo);
+            }
+            0062=ShipCustomShipInfoData(Player(),'FHDAutopilotServiceSnapshot',1,0-Id(serviceLocation));
+        }
+        Setup ~{
+            0001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0002=if(ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.OtherControllerActive'),'result'))
+            0003 ~{
+                0004=Ether(7,'','АВТОПИЛОТ\nСначала отключите управление AutoBot. Два автопилота не могут одновременно отдавать приказы кораблю.');
+                0005=exit;
+            }
+            0007=if(!ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.InitController'),'result'))
+            0008 ~{
+                0009=Ether(7,'','АВТОПИЛОТ\nНе удалось запустить обработчик автопилота. Проверьте, что папка мода заменена целиком.');
+                0010=exit;
+            }
+            0012=dword engine=ShipEqInSlot(Player(),t_Engine);
+            0013=dword tank=ShipEqInSlot(Player(),t_FuelTanks);
+            0014=if(!engine)
+            0015 ~{
+                0016=Ether(7,'','АВТОПИЛОТ\nНа корабле не установлен двигатель.');
+                0017=exit;
+            }
+            0019=if(!tank)
+            0020 ~{
+                0021=Ether(7,'','АВТОПИЛОТ\nНа корабле не установлен топливный бак.');
+                0022=exit;
+            }
+            0024=dword currentStar=ShipStar(Player());
+            0025=if(!currentStar)
+            0026 ~{
+                0027=Ether(7,'','АВТОПИЛОТ\nНе удалось определить текущую систему.');
+                0028=exit;
+            }
+            0030=str selection=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.SelectMapRoute'),'result');
+            0031=int separator=findsubstr(selection,'|');
+            0032=if(separator<1)exit;
+            0033=int finalStarId=substr(selection,0,separator);
+            0034=str route=substr(selection,separator+1);
+            0052=str landing=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.SelectLanding'),'star_id',finalStarId,'result');
+            0052a=if(landing=='')exit;
+            0053=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',2,finalStarId);
+            0054=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',3,HullHP(Player()));
+            0055=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',1,route);
+            0056=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',2,landing);
+            0057=ShipCustomShipInfoTextData(Player(),'FHDAutopilotCore',3,'0');
+            0058=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',1,0);
+            0059=ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2,0);
+            0060=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearServiceSnapshot'));
+            0061=OrderLock(Player(),0);
+            0062=FilmFlags(2,0);FilmFlags(3,0);
+            0063a=ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1,0);
+            0063=Ether(7,'','АВТОПИЛОТ ВКЛЮЧЕН\nКонечная система: '+ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.StarDisplayName'),'star',GalaxyStar(finalStarId-1),'result')+'\nАВТО - отменить маршрут. ПАУЗА - временно остановить автопилот.');
+            0064=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1,1);
+            0065=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ClearRuntime'));
+            0066=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Run'));
+            0067=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+        }
+        ShowHangarMissileCostHelp ~{
+            01=if(CurrentForm()!='Hangar')exit;
+            02=int i=0;
+            03=dword item=0;
+            04=int missileWeapons=0;
+            05=int totalMissing=0;
+            06=for(i=0;i<ShipItems(Player());i=i+1)
+            07 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=int isMissileWeapon=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarIsMissileWeapon'),'item',item,'result');
+                05=if(!isMissileWeapon)continue;
+                06=missileWeapons=missileWeapons+1;
+                07=int missingMissiles=MissilesToRearm(item);
+                08=if(0<missingMissiles)totalMissing=totalMissing+missingMissiles;
+            }
+            08=str helpText='';
+            09=if(missileWeapons<1)
+            10 ~{
+                01=helpText='Пополнение ракет - ракетное оружие не установлено.';
+            }
+            11=else if(totalMissing<1)
+            12 ~{
+                01=helpText='Пополнение ракет - боезапас полный. Стоимость: 0 cr.';
+            }
+            13=else
+            14 ~{
+                01=int missileUnitCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaMissileUnitCost'),'result');
+                02=int reloadCost=totalMissing*missileUnitCost;
+                03=int moneyNow=ShipMoney(Player());
+                04=if(moneyNow<reloadCost)helpText='Пополнение ракет ('+totalMissing+' шт.) - <color=255,50,0>недостаточно кредитов!</color> Требуется: <color=255,50,0>'+reloadCost+' cr.</color> (доступно: '+moneyNow+' cr.).';
+                05=else helpText='Пополнение ракет ('+totalMissing+' шт.) - стоимость: '+reloadCost+' cr.';
+            }
+            15=InterfaceText('Hangar','PM_Help',helpText);
+            16=InterfaceState('Hangar','PM_Help',1);
+        }
+        ShowHangarRepairCostHelp ~{
+            01=if(CurrentForm()!='Hangar')exit;
+            02=int i=0;
+            03=dword item=0;
+            04=int repairCost=0;
+            05=int damaged=0;
+            06=int singleCost=0;
+            07=for(i=0;i<ShipItems(Player());i=i+1)
+            08 ~{
+                01=item=ShipItems(Player(),i);
+                02=if(!item)continue;
+                03=if(!ItemIsInUse(item))continue;
+                04=if(ItemType(item)==t_Hull)continue;
+                05=singleCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.VanillaItemRepairCost'),'item',item,'result');
+                06=if(0<singleCost)
+                07 ~{
+                    01=damaged=1;
+                    02=repairCost=repairCost+singleCost;
+                }
+            }
+            09=dword dockedStation=GetShipRuins(Player());
+            10=if(dockedStation && 0<repairCost)repairCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.ApplyStationItemDiscount'),'base_cost',repairCost,'station',dockedStation,'result');
+            11=str helpText='';
+            12=if(!damaged)
+            13 ~{
+                01=helpText='Ремонт оборудования - всё исправно. Стоимость: 0 cr.';
+            }
+            14=else
+            15 ~{
+                01=int moneyNow=ShipMoney(Player());
+                02=if(moneyNow<repairCost)helpText='Ремонт оборудования - <color=255,50,0>недостаточно кредитов!</color> Требуется: <color=255,50,0>'+repairCost+' cr.</color> (доступно: '+moneyNow+' cr.).';
+                03=else helpText='Ремонт оборудования - стоимость: '+repairCost+' cr.';
+            }
+            16=InterfaceText('Hangar','PM_Help',helpText);
+            17=InterfaceState('Hangar','PM_Help',1);
+        }
+        StarDisplayName ~{
+            01=str result=StarName(star);
+            02=str ownerFaction=StarCustomFaction(star);
+            03=if(ownerFaction=='Klissan')result=result+' (K)';
+            04=else if(ownerFaction=='')
+            05 ~{
+                01=int systemOwner=StarOwner(star);
+                02=if(systemOwner==1)result=result+' (D)';
+                03=else if(systemOwner==2)result=result+' (P)';
+            }
+        }
+        StopWithReason ~{
+            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Cancel'));
+            02=Ether(7,'','АВТОПИЛОТ ОСТАНОВЛЕН\n'+reason);
+        }
+        TakeOff ~{
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0002=if(ShipCustomShipInfoData(Player(),'FHDAutopilotMem',2))exit;
+            0003=if(ScriptItemActionType(t_OnStep))exit;
+            0004=str dockForm=CurrentForm();
+            0005=if(dockForm!='Planet' && dockForm!='PlanetNO' && dockForm!='RuinsTalk' && dockForm!='Hangar')exit;
+            0006=if(!GetShipPlanet(Player()) && !GetShipRuins(Player()))exit;
+            0007=if(ShipCustomShipInfoData(Player(),'FHDAPRuntime',2))exit;
+            0008=ShipCustomShipInfoData(Player(),'FHDAPRuntime',2,1);
+            0009=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',1,dockForm);
+            0010=FilmFlags(3,0);
+            0011=OrderNone(Player());
+            0012=ExtremalTakeOff();
+            0013=FormChange(dockForm);
+            0014=SFT('[FHD_Autopilot 2.05] takeoff handshake from '+dockForm);
+        }
+        TakeOffBoundary ~{
+            0001=int result=0;
+            0002=int phase=ShipCustomShipInfoData(Player(),'FHDAPRuntime',2);
+            0003=if(!phase)exit;
+            0004=result=1;
+            0005=if(!GetShipPlanet(Player()) && !GetShipRuins(Player()) && !ShipIsTakeoff(Player()) && ShipInNormalSpace(Player()))
+            0006 ~{
+                0007=ShipCustomShipInfoData(Player(),'FHDAPRuntime',2,0);
+                0008=ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',1,'');
+                0009=result=0;
+                0010=exit;
+            }
+            0012=if(ScriptItemActionType(t_OnStep))exit;
+            0013=if(phase==1 && CurrentForm()==ShipCustomShipInfoTextData(Player(),'FHDAPRuntime',1) && (GetShipPlanet(Player()) || GetShipRuins(Player())))
+            0014 ~{
+                0015=ShipCustomShipInfoData(Player(),'FHDAPRuntime',2,2);
+                0016=OrderTakeOff(Player());
+            }
+        }
+        TalkGuard ~{
+            0001=if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)!=1)exit;
+            0002=if(CurrentForm()!='Talk' || !GetTalkShip())exit;
+            0003=if(GetShipPlanet(Player()) || GetShipRuins(Player()) || ShipInHyperSpace(Player()))exit;
+            0004=if(ShipCustomShipInfoData(Player(),'FHDAPRuntime',3))exit;
+            0005=ShipCustomShipInfoData(Player(),'FHDAPRuntime',3,1);
+            0006=SFT('[FHD_Autopilot 2.05] native Talk close');
+            0007=ButtonClick('Talk','Close');
+            0008=ShipCustomShipInfoData(Player(),'FHDAPRuntime',3,0);
+        }
+        Toggle ^{
+            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            02=int status=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1);
+            03=if(status==3)
+            04 ~{
+                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HardReset'));
+                02=status=0;
+            }
+            05=if(status==1 || status==2)
+            06 ~{
+                01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Cancel'));
+                01a=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.UpdateStarMapButtons'));
+                02=Ether(7,'','АВТОПИЛОТ ОТКЛЮЧЕН\nМаршрут отменён, ручное управление восстановлено.');
+                03=exit;
+            }
+            07=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Setup'));
+        }
+        TogglePause ~{
+            01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.PauseToggle'));
+        }
+        UpdateHangarMissileButton ^{
+            01=if(CurrentForm()!='Hangar')exit;
+            02=int missilesNeeded=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarMissilesNeeded'),'result');
+            03=if(missilesNeeded)
+            04 ~{
+                01=InterfaceState('Hangar','FHDAutopilotMissileNormal',0);
+                02=InterfaceState('Hangar','FHDAutopilotMissileRed',1);
+            }
+            05=else
+            06 ~{
+                01=InterfaceState('Hangar','FHDAutopilotMissileRed',0);
+                02=InterfaceState('Hangar','FHDAutopilotMissileNormal',1);
+            }
+        }
+        UpdateHangarRepairButton ^{
+            01=if(CurrentForm()!='Hangar')exit;
+            02=int repairNeeded=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HangarRepairNeeded'),'result');
+            03=if(repairNeeded)
+            04 ~{
+                01=InterfaceState('Hangar','FHDAutopilotRepairNormal',0);
+                02=InterfaceState('Hangar','FHDAutopilotRepairRed',1);
+            }
+            05=else
+            06 ~{
+                01=InterfaceState('Hangar','FHDAutopilotRepairRed',0);
+                02=InterfaceState('Hangar','FHDAutopilotRepairNormal',1);
+            }
+        }
+        UpdateStarMapButtons ~{
+            0000=if(FilmFlags(0) || IsFilm())exit;
+            0001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Ensure'));
+            0002=int status=ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1);
+            0003=if(status==1)
+            0004 ~{
+                0005=InterfaceState('StarMap','FHDAutopilotAutoOff',0);
+                0006=InterfaceState('StarMap','FHDAutopilotAutoOn',1);
+            }
+            0005=else
+            0006 ~{
+                0010=InterfaceState('StarMap','FHDAutopilotAutoOn',0);
+                0011=InterfaceState('StarMap','FHDAutopilotAutoOff',1);
+            }
+            0007=if(status==2 || ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))
+            0008 ~{
+                0015=InterfaceState('StarMap','FHDAutopilotPauseOff',0);
+                0016=InterfaceState('StarMap','FHDAutopilotPauseOn',1);
+            }
+            0009=else
+            0010 ~{
+                0020=InterfaceState('StarMap','FHDAutopilotPauseOn',0);
+                0021=InterfaceState('StarMap','FHDAutopilotPauseOff',1);
+            }
+        }
+        VanillaArtRepairCost ^{
+            01=int result=0;
+            02=if(!art)exit;
+            03=if(!ItemCanBeBroken(art))exit;
+            04=if(!ShipCanRepairEq(Player(),art))exit;
+            05=int durab=ItemDurability(art);
+            06=if(durab<0)durab=0;
+            07=int broken=ItemIsBroken(art);
+            08=if(!broken && 100<=durab)exit;
+            09=int cost=ItemCost(art);
+            10=int basePart=cost/10;
+            11=int wearPart=cost/5;
+            12=float rawWear=wearPart;
+            13=float rawCost=(rawWear*(100-durab))/100.0+10.0+basePart;
+            14=int repCost=(round(rawCost)/10)*10;
+            15=if(broken || durab<1)repCost=round(1.3*repCost);
+            16=repCost=repCost*2;
+            17=if(repCost<20)repCost=20;
+            18=result=repCost;
+        }
+        VanillaFuelCost ^{
+            01=int result=0;
+            02=if(amount<1)exit;
+            03=int baseFuelCost=round(amount*PortionInDiapason(CurTurn(),1000,15000,1,10));
+            04=int racePercent=100;
+            05=if(planet)
+            06 ~{
+                01=int fuelOwner=PlanetOwner(planet);
+                02=if(fuelOwner==0)racePercent=70;
+                03=else if(fuelOwner==1)racePercent=90;
+                04=else if(fuelOwner==2)racePercent=100;
+                05=else if(fuelOwner==3)racePercent=115;
+                06=else if(fuelOwner==4)racePercent=130;
+                07=else if(fuelOwner==7)racePercent=80;
+            }
+            07=int luckDifficulty=GalaxyDiffLevels(7);
+            08=float difficultyMult=0.4+(0.006*luckDifficulty);
+            09=result=round((baseFuelCost*racePercent*difficultyMult)/100.0);
+            10=if(result<amount)result=amount;
+        }
+        VanillaHullRepairCost ^{
+            01=int result=0;
+            02=dword hull=ShipEqInSlot(Player(),t_Hull);
+            03=if(!hull)exit;
+            04=int fullSize=ItemSize(hull);
+            05=int curHP=HullHP(Player());
+            06=if(fullSize<1 || fullSize<=curHP)exit;
+            07=int fullCost=ItemCost(hull);
+            08=float damageProc=(100.0*(fullSize-curHP))/fullSize;
+            09=int stepCost=fullCost/40;
+            10=float rawCost=stepCost;
+            11=rawCost=(rawCost*damageProc)/100.0+10.0;
+            12=result=(round(rawCost)/10)*10;
+            13=if(result<10)result=10;
+        }
+        VanillaItemRepairCost ^{
+            01=int result=0;
+            02=if(!item)exit;
+            03=if(ItemType(item)==t_Hull)exit;
+            03a=if(ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.IsArtifact'),'item',item,'result'))exit;
+            04=if(!ItemCanBeBroken(item))exit;
+            05=if(!ShipCanRepairEq(Player(),item))exit;
+            06=if(-1<EqSpecial(item))
+            07 ~{
+                01=if(CT('MicroModuls.'+BonusNumInCfg(EqSpecial(item))+'.NonRepairable')=='1')exit;
+            }
+            08=int durab=ItemDurability(item);
+            09=if(durab<0)durab=0;
+            10=int broken=ItemIsBroken(item);
+            11=if(!broken && 100<=durab)exit;
+            12=int cost=ItemCost(item);
+            13=int basePart=cost/20;
+            14=int wearPart=cost/7;
+            15=float rawWear=wearPart;
+            16=float rawCost=(rawWear*(100-durab))/100.0+10.0+basePart;
+            17=int repCost=(round(rawCost)/10)*10;
+            18=if(broken || durab<1)repCost=round(1.3*repCost);
+            19=if(repCost<10)repCost=10;
+            20=result=repCost;
+        }
+        VanillaMissileUnitCost ^{
+            01=int gtu=GalaxyTechLevel();
+            02=int result=10;
+            03=if(2<gtu)result=10+(gtu-2)*18;
+            04=if(100<result)result=100;
+        }
+    }
+}
+ShipInfo ^{
+    AddInfo ^{
+        CustomInfos ^{
+            FHDAPRuntime ~{
+                Description=NoShow
+                Icon=0
+                Name=
+            }
+            FHDAutopilotCore ^{
+                Description=NoShow
+                Icon=0
+                Name=
+                OnActCode ~{
+                    0001=if(ScriptItemActionType(t_OnStep,0))ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.Run'));
+                    0002=if(ScriptItemActionType(t_OnStep,11))ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.AfterStep'));
+                    0003=if((ScriptItemActionType(t_OnEnteringForm) || ScriptItemActionType(t_OnReEnteringForm)) && !FilmFlags(0) && !IsFilm())ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDAutopilot.HandleFormEnter'));
+                    0004=if(ScriptItemActionType(t_OnLeavingForm) && CurrentForm()=='StarMap' && ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1 && (FormChange()=='Jump' || (FormChange()=='AB' && ShipInHyperSpace(Player()))))ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',3,'center_after_jump');
+                    0005=if(ScriptItemActionType(t_OnEnteringForm) && CurrentForm()=='StarMap' && ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',3)=='center_after_jump'){ShipCustomShipInfoTextData(Player(),'FHDAutopilotMem',3,'');if(ShipCustomShipInfoData(Player(),'FHDAutopilotCore',1)==1 && !ShipCustomShipInfoData(Player(),'FHDAutopilotPauseRequest',1))ButtonClick('StarMap','CenterShip');}
+                }
+                OnActCodeTypes=t_OnStep,t_OnEnteringForm,t_OnReEnteringForm,t_OnLeavingForm
+                OnActStepTypes=0,11
+            }
+            FHDAutopilotMem ~{
+                Description=NoShow
+                Icon=0
+                Name=
+            }
+            FHDAutopilotPauseRequest ~{
+                Description=NoShow
+                Icon=0
+                Name=
+            }
+            FHDAutopilotServiceSnapshot ~{
+                Description=NoShow
+                Icon=0
+                Name=
+            }
+        }
+    }
+}
