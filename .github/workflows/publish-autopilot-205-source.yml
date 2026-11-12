@@ -1,0 +1,69 @@
+name: Publish Autopilot v2.05 editable source
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-autopilot-205-source.yml'
+      - '1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/tools/build_source.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install GI converter
+        run: git clone --depth=1 https://github.com/Xenomorphchyma/SRHD-XenoModKit.git /tmp/SRHD-XenoModKit
+      - name: Extract sources and rebuild clean ZIP
+        env:
+          PYTHONPATH: /tmp/SRHD-XenoModKit
+        run: |
+          python 1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/tools/build_source.py --export
+          python 1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/tools/build_source.py --verify
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          import hashlib, json
+          root=Path('1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub')
+          original=root/'install/FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST.zip'
+          rebuilt=root/'DIST/FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST.zip'
+          expected='4207a89eee9690403e135bffd18647654a035d28f681d3db213b0cb376ad7753'
+          sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
+          assert sha(original)==sha(rebuilt)==expected
+          with ZipFile(original) as a, ZipFile(rebuilt) as b:
+              assert len(a.namelist())==37 and a.namelist()==b.namelist()
+              assert all(a.read(n)==b.read(n) for n in a.namelist())
+          sources=json.loads((root/'SOURCE_HASHES.json').read_text(encoding='utf-8'))
+          originals=json.loads((root/'ORIGINAL_FILE_SHA256.json').read_text(encoding='utf-8'))
+          assert len(sources)==66 and len(originals)==37
+          assert len(list((root/'SOURCE/PNG').glob('*.png')))==29
+          assert len(list((root/'SOURCE/ORIGINAL_GI').glob('*.gi')))==29
+          assert len(list((root/'SOURCE/DAT_JSON').rglob('*.json')))==3
+          assert len(list((root/'SOURCE/ORIGINAL_TEXT').glob('*.txt')))==3
+          report={'version':'2.05_ENGINE_REPAIR_TEST','original_zip_sha256':expected,
+            'original_game_files':37,'original_gi_files':29,'png_editable_files':29,
+            'dat_json_editable_files':3,'original_source_txt_files':3,
+            'compiled_scr_original_only':1,'source_and_editable_files':len(sources),
+            'all_source_exports_verified':True,'dat_roundtrip_byte_exact':True,
+            'moduleinfo_cp1251_roundtrip':True,'clean_install_sha256_exact':True,
+            'game_tested':False,'engine_repair_tested':False}
+          (root/'VALIDATION_REPORT.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('PASS',report)
+          PY
+      - name: Commit byte-exact source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- 1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/SOURCE 1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/ORIGINAL_FILE_SHA256.json 1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/SOURCE_HASHES.json 1FHD_Autopilot_v2.05_ENGINE_REPAIR_TEST_Nexus-GitHub/VALIDATION_REPORT.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish FHD_Autopilot v2.05 source and verified editable resources'
+            git push origin HEAD:main
+          fi
