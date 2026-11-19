@@ -20,3 +20,9 @@
 - [Оригинальный исторический архив FHD_Autopilot.rar](FHD_Autopilot.rar)
 
 Прежние версии и файлы не заменялись.
+
+
+## 2.16.1 (Google Drive)
+
+- [Установочный архив](1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub/install/FHD_Autopilot v2.16.1.rar)
+- [Исходники и проверка](1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub)

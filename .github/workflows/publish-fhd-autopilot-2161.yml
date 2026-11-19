@@ -1,0 +1,32 @@
+name: Recover FHD_Autopilot 2.16.1 original sources
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-fhd-autopilot-2161.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: git clone --depth=1 https://github.com/Xenomorphchyma/SRHD-XenoModKit.git /tmp/SRHD-XenoModKit
+      - name: Verify ZIP and export original source
+        env:
+          PYTHONPATH: /tmp/SRHD-XenoModKit:1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub/tools
+        run: |
+          python '1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub/tools/nexus_source_export.py' --archive '1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub/install/FHD_Autopilot v2.16.1.rar' --target '1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub' --sha256 598d64e55dc8e1e88fe5fe553090dc3590a0d5fd50dcc58feac8e29d64a64bc5 --mod 'FHD_Autopilot'
+      - name: Commit verified source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub/SOURCE' '1FHD_Autopilot_v2.16.1_DRIVE_Nexus-GitHub/VALIDATION_REPORT.json'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Extract FHD_Autopilot 2.16.1 original source'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
